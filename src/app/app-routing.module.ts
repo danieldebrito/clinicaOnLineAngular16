@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'sign-up', loadChildren: () => import('./auth/pages/sign-up/sign-up.module').then(m => m.SignUpModule) },
   { path: 'forgot-password', loadChildren: () => import('./auth/pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) },
   { path: 'verify-email', loadChildren: () => import('./auth/pages/verify-email/verify-email.module').then(m => m.VerifyEmailModule) },
+  { path: 'selectsingup', loadChildren: () => import('./auth/pages/pre-sign-up/pre-sign-up.module').then(m => m.PreSignUpModule) },
   // pages ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
   { path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule), canActivate: [AuthGuard] },

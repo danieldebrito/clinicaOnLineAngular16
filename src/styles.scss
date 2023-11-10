@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Alegreya';
+    src: url('./assets/fonts/AlegreyaSans/AlegreyaSans-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('./assets/fonts/Orbitron/Orbitron-VariableFont_wght.ttf');
+}
+
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('./assets/fonts/Rajdhani/Rajdhani-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Simpsons';
+    src: url('./assets/fonts/Simpsons/Simpsonfont.ttf');
+}
+
+.bg-red {
+    background-color: #980c0c;
+}
+
+.display-5 {
+    font-family: "Rajdhani", "arial", sans-serif;
+    font-size: 40px;
+    color: aliceblue;
+}
+
+.amatic {
+    font-family: "Rajdhani", "arial", sans-serif;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-sm-6">
+        <div class="col-sm-6">
+            <app-especialista-card [especialista]="turno.especialista"></app-especialista-card>
+        </div>
+        <div class="col-sm-6">
+            <app-especialidades-item [especialidad]="turno.especialidad"></app-especialidades-item>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <ul>
+            <li>{{ turno.fecha }}</li>
+            <li>{{ turno.estado }}</li>
+
+        </ul>
+        <button type="button" class="btn btn-success" (click)="lanzaTurno()">Success</button>
+    </div>
+</div>

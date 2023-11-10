@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/saladejuegos-angular16",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

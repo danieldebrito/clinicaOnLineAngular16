@@ -1,0 +1,5 @@
+<div class="row row-cols-1 row-cols-md-3 g-4" >
+    <div class="col" *ngFor="let item of especialidades">
+        <app-especialidades-card (especialidadSeleccionada)="lanzarEspecialidad($event)" [especialidad]="item"></app-especialidades-card>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="col-sm-12">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Duracion de Turno</th>
+                <th scope="col">Sel.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of especialidades">
+                <td> {{ item.nombre }} </td>
+                <td> {{ item.duracionTurno }} </td>
+                <td> <a class="btn btn-primary btn-sm " (click)="lanzarEspecialidad(item)"> <i class="fa fa-check-circle" aria-hidden="true"></i> </a> </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

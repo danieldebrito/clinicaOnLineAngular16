@@ -6,9 +6,16 @@
           "clinicaonline-f5726"
         ]
       }
+    },
+    "clinicaonlinea16": {
+      "hosting": {
+        "clinicaonlineAngular16": [
+          "clinicaonlinea16"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "clinicaonline-f5726"
+    "default": "clinicaonlinea16"
   }
 }

@@ -1,11 +1,11 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyCqeVYUunVN4ZLAXROwmo26QB13ILgyIFU",
-    authDomain: "erparciallab4-80bba.firebaseapp.com",
-    projectId: "erparciallab4-80bba",
-    storageBucket: "erparciallab4-80bba.appspot.com",
-    messagingSenderId: "566686177794",
-    appId: "1:566686177794:web:53228492aaeeace909a51b"
+    projectId: 'clinicaonlinea16',
+    appId: '1:76072995991:web:6d90b31d1a06a81f926dd2',
+    storageBucket: 'clinicaonlinea16.appspot.com',
+    apiKey: 'AIzaSyBYBBO0i05vX_kntXWpQJG-KQvFljSLV34',
+    authDomain: 'clinicaonlinea16.firebaseapp.com',
+    messagingSenderId: '76072995991',
   }
 };

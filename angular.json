@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "saladejuegosAngular16": {
+    "clinicaonlineAngular16": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/saladejuegos-angular16",
+            "outputPath": "dist/clinicaonline-angular16",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "saladejuegosAngular16:build:production"
+              "browserTarget": "clinicaonlineAngular16:build:production"
             },
             "development": {
-              "browserTarget": "saladejuegosAngular16:build:development"
+              "browserTarget": "clinicaonlineAngular16:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "saladejuegosAngular16:build"
+            "browserTarget": "clinicaonlineAngular16:build"
           }
         },
         "test": {
@@ -110,7 +110,7 @@
           "builder": "@angular/fire:deploy",
           "options": {
             "version": 2,
-            "browserTarget": "saladejuegosAngular16:build:production"
+            "browserTarget": "clinicaonlineAngular16:build:production"
           }
         }
       }

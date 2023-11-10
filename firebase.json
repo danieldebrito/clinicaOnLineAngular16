@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/saladejuegos-angular16",
+    "public": "dist/clinicaonline-angular16",
     "ignore": [
       "firebase.json",
       "**/.*",

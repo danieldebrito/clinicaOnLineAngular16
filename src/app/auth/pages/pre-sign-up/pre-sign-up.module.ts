@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PreSignUpRoutingModule } from './pre-sign-up-routing.module';
 import { PreSignUpComponent } from './pre-sign-up.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { PreSignUpComponent } from './pre-sign-up.component';
   ],
   imports: [
     CommonModule,
-    PreSignUpRoutingModule
+    PreSignUpRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PreSignUpModule { }

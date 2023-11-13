@@ -26,7 +26,6 @@ export class AuthService {
   constructor(
     private logService: LogUserService,
     /////////////////////////////////////////////////////////////////////////  UNIFICAR
-    public afs: Firestore, // Inject Firestore service
     public afsA: AngularFirestore, // Inject Firestore service
     /////////////////////////////////////////////////////////////////////////
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -70,19 +69,22 @@ export class AuthService {
       });
   }
   // Sign up with email/password
-  SignUp(email: string, password: string, role: string) {
+  SignUp(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        
+
 
         let user: User = result.user;
-        user.role = role;
+
+        console.log(user);
+
 
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
         this.SendVerificationMail();
-        this.SetUserDataRole(user);
+
+        return user;
       })
       .catch((error) => {
         window.alert(error.message);
@@ -151,32 +153,10 @@ export class AuthService {
       merge: true,
     });
   }
-  SetUserDataRole(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afsA.doc(
-      `users/${user.uid}`
-    );
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      role: user.role
-    };
-    return userRef.set(userData, {
-      merge: true,
-    });
-  }
-  // Sign out
-  SignOut() {
-    return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
-    });
-  }
 
-/////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
   public getUserByID(id: string): Observable<User> {
     const documento = this.afsA.doc<User>(`users/${id}`);

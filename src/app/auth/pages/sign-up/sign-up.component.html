@@ -10,16 +10,10 @@
                     <div class="formGroup mt-1">
                         <input type="password" class="form-control" placeholder="Password" #userPwd required />
                     </div>
-                    <div class="formGroup mt-3">
-                        <select class="form-select" aria-label="Default select example" #userRole>
-                            <option selected>Cargo</option>
-                            <option value="empleado">Empleado</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
+
                     <div class="formGroup">
                         <input type="button" class="w-100 btn btn-lg btn-primary mt-3" value="Sign Up"
-                            (click)="authService.SignUp(userEmail.value, userPwd.value, userRole.value)" />
+                            (click)="authService.SignUp(userEmail.value, userPwd.value)" />
                     </div>
                     <div class="formGroup">
                         <span class="or"><span class="orInner">Or</span></span>

@@ -25,6 +25,8 @@ const routes: Routes = [
   { path: 'especialidades', loadChildren: () => import('./pages/client/especialidades/especialidades.module').then(m => m.EspecialidadesModule) },
   { path: 'jornadas', loadChildren: () => import('./pages/client/especialistas/jornada/jornada.module').then(m => m.JornadaModule) },
   { path: 'denegado', loadChildren: () => import('./pages/denegado/denegado.component').then(m => m.DenegadoComponent) },
+  { path: 'signuppaciente', loadChildren: () => import('./auth/pages/sign-up-paciente/sign-up-paciente.module').then(m => m.SignUpPacienteModule) },
+  { path: 'signupespecialista', loadChildren: () => import('./auth/pages/sign-up-especialista/sign-up-especialista.module').then(m => m.SignUpEspecialistaModule) },
 ];
 
 @NgModule({

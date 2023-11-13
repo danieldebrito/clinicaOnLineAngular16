@@ -14,12 +14,12 @@ export class PreSignUpComponent {
     private usuariosSv: UsuariosService) {}
 
 
-  public redirectCreate(role: string) {
-    this.router.navigate(['sign-up']);
-
-    if(role == 'paciente'){
+  public redirectCreate(roleNombre: string) {
+    if(roleNombre == 'paciente'){
+      this.router.navigate(['signuppaciente']);
       this.usuariosSv.role = ERole.paciente;
     }else{
+      this.router.navigate(['signupespecialista']);
       this.usuariosSv.role = ERole.especialista;
     }
   }

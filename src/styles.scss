@@ -19,18 +19,32 @@
     src: url('./assets/fonts/Simpsons/Simpsonfont.ttf');
 }
 
-.bg-red {
-    background-color: #980c0c;
-}
+$color-celeste: #46e3e0;
 
-.display-5 {
-    font-family: "Rajdhani", "arial", sans-serif;
-    font-size: 40px;
-    color: aliceblue;
-}
-
-.amatic {
-    font-family: "Rajdhani", "arial", sans-serif;
-}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.bg-azul {
+    background-color: #0061aa;
+}
+
+.bg-celeste {
+    background-color: #46e3e0;
+}
+
+.bg-naranja {
+    background-color: #46e3e0;
+}
+
+
+.color-azul {
+    color: #0061aa;
+}
+
+
+
+.color-naranja {
+    color: #46e3e0;
+}
+
+

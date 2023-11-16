@@ -15,7 +15,6 @@ export class Paciente extends Usuario {
         dni?: string,
         edad?: string,
         fechaNacimiento?: string,
-        foto?: string,
         role?: ERole,
         habilitado?: boolean
     ) {
@@ -33,7 +32,6 @@ export class Paciente extends Usuario {
             dni,
             edad,
             fechaNacimiento,
-            foto,
             role,
             habilitado
         );

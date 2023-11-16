@@ -19,7 +19,6 @@ export class Usuario {
     public dni?: string,
     public edad?: string,
     public fechaNacimiento?: string,
-    public foto?: string,
     public role?: ERole,
     public habilitado?: boolean
   ) { }

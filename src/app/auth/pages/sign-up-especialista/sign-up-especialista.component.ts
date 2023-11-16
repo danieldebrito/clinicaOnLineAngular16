@@ -12,12 +12,12 @@ import { ImageService } from 'src/app/services/File/image.service';
 })
 export class SignUpEspecialistaComponent implements OnInit {
 
-  public photoSelected: any = {};
+  public photoSelected: any = 'assets/images/placeholder-user.png';
   public image: any = {};
 
   public error = false;
   public mostrarPass = false;
-  public role: ERole = ERole.paciente;
+  public role: ERole = ERole.especialista;
 
   public userEmail: string = '';
   public userPwd: string = '';
@@ -36,7 +36,6 @@ export class SignUpEspecialistaComponent implements OnInit {
     dni: new FormControl('', [Validators.required, Validators.minLength(7)]),
     edad: new FormControl('', [Validators.required, Validators.minLength(1)]),
     fechaNacimiento: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    //foto: new FormControl('', [Validators.required, Validators.minLength(2)]),
     //role: new FormControl('', [Validators.required, Validators.minLength(6)]),
     //habilitado: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
@@ -67,32 +66,25 @@ export class SignUpEspecialistaComponent implements OnInit {
         email: this.createForm.value.email ?? '',
         password: this.createForm.value.password ?? '',
         displayName: this.createForm.value.displayName ?? '',
-        photoURL: (await this.imagesSv.saveImage(this.image, this.createForm.value.email ?? '')).ref.storage,
+        photoURL: (await this.imagesSv.saveImage(this.image, this.createForm.value.displayName ?? '')).ref.fullPath,
         nombre: this.createForm.value.nombre ?? '',
         apellido: this.createForm.value.apellido ?? '',
         sexo: this.createForm.value.sexo ?? '',
         dni: this.createForm.value.dni ?? '',
         edad: this.createForm.value.edad ?? '',
         fechaNacimiento: this.createForm.value.fechaNacimiento ?? '',
-        //foto: this.createForm.value.foto ?? '',
         role: this.role,
         habilitado: true,
       };
 
-      // this.createUserAuth(newItem);
       this.authService.SignUp(newEspecialista.email, newEspecialista.password);
-
-      //this.usuariosService.addItem(newItem);
+      console.log(newEspecialista);
+      this.usuariosService.addItem(newEspecialista);
+      
     } else {
       console.log("El formulario no es válido, realiza alguna acción o muestra un mensaje de error.");
       // El formulario no es válido, realiza alguna acción o muestra un mensaje de error.
     }
-  }
-
-  public createUserAuth(usuario: Usuario) {
-    const pass = usuario.password ?? '';
-    const email = usuario.email ?? '';
-    //this.authService.SignUp(email, pass);
   }
 
   public GoogleAuth() {
@@ -100,7 +92,7 @@ export class SignUpEspecialistaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.role = this.usuariosService.role;
+   this.role = this.usuariosService.role;
   }
 
 }

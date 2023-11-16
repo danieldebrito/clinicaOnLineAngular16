@@ -1,4 +1,4 @@
-import { Usuario, ERole } from "./usuario";
+import { Usuario, ERole } from "src/app/auth/class/usuario";
 
 export class Administrador extends Usuario {
   constructor(

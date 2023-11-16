@@ -15,7 +15,7 @@
                   <input class="form-control" type="file" name="image" (change)="selectImage($event)"
                     enctype="multipart/form-data" #photoInput />
                   <div class="mt-2">
-                    <img [src]="photoSelected || 'assets/no-image.png'" class="img-fluid" alt="No image"
+                    <img [src]="photoSelected || 'assets/images/placeholder-user.png'" class="img-fluid" alt="No image"
                       (click)="photoInput.click()">
                   </div>
                 </div>

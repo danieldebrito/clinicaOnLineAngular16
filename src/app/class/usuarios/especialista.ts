@@ -16,7 +16,6 @@ export class Especialista extends Usuario {
         dni?: string | undefined,
         edad?: string | undefined,
         fechaNacimiento?: string | undefined,
-        foto?: string | undefined,
         role?: ERole | undefined,
         habilitado?: boolean | undefined,
         public jornada?: Jornada[]
@@ -35,7 +34,6 @@ export class Especialista extends Usuario {
             dni,
             edad,
             fechaNacimiento,
-            foto,
             role,
             habilitado
         );

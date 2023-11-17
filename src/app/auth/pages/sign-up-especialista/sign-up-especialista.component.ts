@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/auth/services/usuarios.service';
 import { Usuario, ERole } from 'src/app/auth/class/usuario';
-import { ImageService } from 'src/app/services/File/image.service';
+import { StorageService } from 'src/app/services/File/storage.service';
 
 @Component({
   selector: 'app-sign-up-especialista',
@@ -14,6 +14,7 @@ export class SignUpEspecialistaComponent implements OnInit {
 
   public photoSelected: any = 'assets/images/placeholder-user.png';
   public image: any = {};
+  public urlPhotoPath = '';
 
   public error = false;
   public mostrarPass = false;
@@ -41,16 +42,27 @@ export class SignUpEspecialistaComponent implements OnInit {
   });
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private usuariosService: UsuariosService,
-    private imagesSv: ImageService) { }
+    private storageService: StorageService) { }
 
-  public selectImage(event: any) {
-    if (event.target.files.length > 0) {
-      this.image = <File>event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = e => this.photoSelected = reader.result;
-      reader.readAsDataURL(this.image);
+
+  onFileSelected(event: any) {
+    this.image = event.target.files[0];
+    if (this.image) {
+      this.storageService.uploadFile(this.image)
+        .then(downloadUrl => {
+          //console.log('Archivo subido correctamente. URL:', downloadUrl);
+          this.urlPhotoPath = downloadUrl;
+
+          // para mostrar la imagen en el html ////////////////////////////////////////////////////////
+          const reader = new FileReader();
+          reader.onload = e => this.photoSelected = reader.result;
+          reader.readAsDataURL(this.image);
+        })
+        .catch(error => {
+          console.error('Error al subir el archivo:', error);
+        });
     }
   }
 
@@ -66,7 +78,7 @@ export class SignUpEspecialistaComponent implements OnInit {
         email: this.createForm.value.email ?? '',
         password: this.createForm.value.password ?? '',
         displayName: this.createForm.value.displayName ?? '',
-        photoURL: (await this.imagesSv.saveImage(this.image, this.createForm.value.displayName ?? '')).ref.fullPath,
+        photoURL: this.urlPhotoPath ?? '',
         nombre: this.createForm.value.nombre ?? '',
         apellido: this.createForm.value.apellido ?? '',
         sexo: this.createForm.value.sexo ?? '',
@@ -80,7 +92,7 @@ export class SignUpEspecialistaComponent implements OnInit {
       this.authService.SignUp(newEspecialista.email, newEspecialista.password);
       console.log(newEspecialista);
       this.usuariosService.addItem(newEspecialista);
-      
+
     } else {
       console.log("El formulario no es válido, realiza alguna acción o muestra un mensaje de error.");
       // El formulario no es válido, realiza alguna acción o muestra un mensaje de error.
@@ -92,7 +104,6 @@ export class SignUpEspecialistaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.role = this.usuariosService.role;
+    this.role = this.usuariosService.role;
   }
-
 }

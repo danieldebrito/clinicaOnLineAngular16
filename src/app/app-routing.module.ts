@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'administrador', loadChildren: () => import('./pages/client/admin/administrador/administrador.module').then(m => m.AdministradorModule) },
   { path: 'especialidades', loadChildren: () => import('./pages/client/especialidades/especialidades.module').then(m => m.EspecialidadesModule) },
   { path: 'jornadas', loadChildren: () => import('./pages/client/especialistas/jornada/jornada.module').then(m => m.JornadaModule) },
+  { path: 'usuarios', loadChildren: () => import('./pages/client/usuarios/usuarios.module').then(m => m.UsuariosModule) },
 ];
 
 @NgModule({

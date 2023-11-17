@@ -101,7 +101,7 @@ export class SignUpPacienteComponent {
 
       const newEspecialista: Paciente = {
         //id: this.createForm.value.id ?? '',
-        //emailVerified: this.createForm.value.emailVerified ?? '',
+        emailVerified: false,
 
         email: this.createForm.value.email ?? '',
         password: this.createForm.value.password ?? '',

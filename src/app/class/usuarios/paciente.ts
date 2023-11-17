@@ -8,7 +8,6 @@ export class Paciente extends Usuario {
         id?: string,
         displayName?: string,
         photoURL?: string,
-        photoDNIURL?: string,
         emailVerified?: boolean,
         nombre?: string,
         apellido?: string,
@@ -17,9 +16,12 @@ export class Paciente extends Usuario {
         edad?: string,
         fechaNacimiento?: string,
         role?: ERole,
-        habilitado?: boolean
+        habilitado?: boolean,
+        /////  paciente
+        public photoDNIURL?: string,
+
     ) {
-        
+        photoDNIURL
         super(
             email,
             password,
@@ -27,7 +29,6 @@ export class Paciente extends Usuario {
             id,
             displayName,
             photoURL,
-
             emailVerified,
             nombre,
             apellido,

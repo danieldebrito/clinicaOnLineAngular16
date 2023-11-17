@@ -60,7 +60,7 @@ export class SignUpPacienteComponent {
     if (this.image) {
       this.storageService.uploadFile(this.image)
         .then(downloadUrl => {
-          //console.log('Archivo subido correctamente. URL:', downloadUrl);
+          console.log('Archivo subido correctamente. URL:', downloadUrl);
           this.urlPhotoPath = downloadUrl;
 
           // para mostrar la imagen en el html ////////////////////////////////////////////////////////
@@ -79,12 +79,12 @@ export class SignUpPacienteComponent {
     if (this.imageDNI) {
       this.storageService.uploadFile(this.imageDNI)
         .then(downloadUrl => {
-          //console.log('Archivo subido correctamente. URL:', downloadUrl);
+          console.log('Archivo subido correctamente. URL:', downloadUrl);
           this.urlPhotoPathDNI = downloadUrl;
 
           // para mostrar la imagen en el html ////////////////////////////////////////////////////////
           const reader = new FileReader();
-          reader.onload = e => this.photoSelectedDNI= reader.result;
+          reader.onload = e => this.photoSelectedDNI = reader.result;
           reader.readAsDataURL(this.imageDNI);
         })
         .catch(error => {
@@ -106,8 +106,8 @@ export class SignUpPacienteComponent {
         email: this.createForm.value.email ?? '',
         password: this.createForm.value.password ?? '',
         displayName: this.createForm.value.displayName ?? '',
-        photoURL: this.urlPhotoPath ?? '',
-        //photoDNIURL: this.urlPhotoPathDNI ?? '',
+        photoURL: this.urlPhotoPath,
+        photoDNIURL: this.urlPhotoPathDNI,
         nombre: this.createForm.value.nombre ?? '',
         apellido: this.createForm.value.apellido ?? '',
         sexo: this.createForm.value.sexo ?? '',
@@ -119,7 +119,7 @@ export class SignUpPacienteComponent {
       };
 
       this.authService.SignUp(newEspecialista.email, newEspecialista.password);
-      console.log(newEspecialista);
+      // console.log(newEspecialista);
       this.usuariosService.addItem(newEspecialista);
 
     } else {

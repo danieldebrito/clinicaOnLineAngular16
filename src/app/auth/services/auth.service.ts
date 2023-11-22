@@ -160,6 +160,7 @@ export class AuthService {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['home']);
+      this.userData = null;
     });
   }
 

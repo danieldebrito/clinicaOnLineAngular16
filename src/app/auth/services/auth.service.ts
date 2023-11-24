@@ -87,7 +87,7 @@ sign up with username/password and sign in with social auth
 provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   async SetUserData(userFirebase: any, userFormulario: any) {
     const userRef: AngularFirestoreDocument<any> = this.afsA.doc(
-      `usuarios/${userFirebase.id}`
+      `usuarios/${userFirebase.uid}`
     );
 
     userFormulario.uid = userFirebase.uid;

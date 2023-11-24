@@ -89,9 +89,11 @@ export class SignUpEspecialistaComponent implements OnInit {
         habilitado: true,
       };
 
-      this.authService.SignUp(newEspecialista.email, newEspecialista.password);
+      this.authService.SignUp(newEspecialista);
+
+
       console.log(newEspecialista);
-      this.usuariosService.addItem(newEspecialista);
+      //this.usuariosService.addItem(newEspecialista);
 
     } else {
       console.log("El formulario no es válido, realiza alguna acción o muestra un mensaje de error.");
@@ -99,9 +101,11 @@ export class SignUpEspecialistaComponent implements OnInit {
     }
   }
 
+  /*
   public GoogleAuth() {
     this.authService.GoogleAuth();
   }
+  */
 
   ngOnInit(): void {
     this.role = this.usuariosService.role;

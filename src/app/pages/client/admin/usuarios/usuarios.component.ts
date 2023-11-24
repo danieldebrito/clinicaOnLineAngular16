@@ -20,6 +20,7 @@ export class UsuariosComponent implements OnInit {
   public getUsuarios(){
     this.usuariosSvc.getItems().subscribe( res => {
       this.usuarios = res;
+      console.table(res);
     });
   }
 

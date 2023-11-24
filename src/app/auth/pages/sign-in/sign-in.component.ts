@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from "src/app/auth/services/auth.service";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Usuario } from '../../class/usuario';
 
 
 @Component({
@@ -19,14 +20,37 @@ export class SignInComponent {
     public authService: AuthService
   ) { }
 
+  public login(email: string, password: string){
+    let user: Usuario = {
+      email: email,
+      password: password
+    }
+
+    this.authService.SignIn(user);
+
+    this.authService.SignIn
+  }
+
+
   public AutoSignIn(){  /// login de prueba
     //this.loginForm.setValue( { email: 'danieldebrito@outlook.com', password: '123456' });
-    this.authService.SignIn('danieldebrito@outlook.com', '123456');
+
+    let user: Usuario = {
+      email: 'danieldebrito@outlook.com',
+      password: '123456'
+    }
+
+    this.authService.SignIn(user);
   }
 
   public AutoSignInEmpleado(){  /// login de prueba
     //this.loginForm.setValue( { email: 'danieldebrito@outlook.com', password: '123456' });
-    this.authService.SignIn('danielrdebrito@gmail.com', '123456');
+    let user: Usuario = {
+      email: 'danielrdebrito@gmail.com',
+      password: '123456'
+    }
+
+    this.authService.SignIn(user);
   }
 
   ngOnInit() { }

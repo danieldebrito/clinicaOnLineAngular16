@@ -118,7 +118,7 @@ export class SignUpPacienteComponent {
         habilitado: true,
       };
 
-      this.authService.SignUp(newEspecialista.email, newEspecialista.password);
+      this.authService.SignUp(newEspecialista);
       // console.log(newEspecialista);
       this.usuariosService.addItem(newEspecialista);
 
@@ -127,10 +127,11 @@ export class SignUpPacienteComponent {
       // El formulario no es válido, realiza alguna acción o muestra un mensaje de error.
     }
   }
-
+/*
   public GoogleAuth() {
     this.authService.GoogleAuth();
   }
+  */
 
   ngOnInit(): void {
     this.role = this.usuariosService.role;

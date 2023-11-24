@@ -1,22 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from 'src/app/auth/models/user';
-import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-
-
-
 import { UserLog } from 'src/app/auth/class/userLog';
-import { catchError, map, take } from 'rxjs/operators';
-import { collection, collectionData, doc, docData, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { catchError } from 'rxjs/operators';
 import { LogUserService } from './log-user.service';
-
 
 @Injectable({
   providedIn: 'root',
@@ -46,11 +36,11 @@ export class AuthService {
     });
   }
   // Sign in with email/password
-  SignIn(email: string, password: string) {
+  SignIn(usuario: any) {
     return this.afAuth
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(usuario.email, usuario.password)
       .then((result) => {
-        this.SetUserData(result.user);
+        this.SetUserData(result.user, usuario);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
 
@@ -69,15 +59,17 @@ export class AuthService {
       });
   }
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  SignUp(usuario: any) {
     return this.afAuth
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(usuario.email, usuario.password)
       .then((result) => {
 
 
         let user: User = result.user;
 
         console.log(user);
+        this.SetUserData(result.user, usuario);
+        //this.usuariosService.addItem(usuario);
 
 
         /* Call the SendVerificaitonMail() function when new user sign
@@ -90,21 +82,24 @@ export class AuthService {
         window.alert(error.message);
       });
   }
-    /* Setting up user data when sign in with username/password,
-  sign up with username/password and sign in with social auth
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: any) {
+  /* Setting up user data when sign in with username/password,
+sign up with username/password and sign in with social auth
+provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
+  async SetUserData(userFirebase: any, userFormulario: any) {
     const userRef: AngularFirestoreDocument<any> = this.afsA.doc(
-      `users/${user.uid}`
+      `usuarios/${userFirebase.id}`
     );
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-    };
-    return userRef.set(userData, {
+
+    userFormulario.uid = userFirebase.uid;
+    userFormulario.email = userFirebase.email;
+    userFormulario.displayName = userFirebase.displayName;
+    userFormulario.photoURL = userFirebase.photoURL;
+    userFormulario.emailVerified = userFirebase.emailVerified;
+
+    console.log(userFirebase.emailVerified);
+    
+    return userRef.set(userFormulario, {
+      
       merge: true,
     });
   }
@@ -136,27 +131,7 @@ export class AuthService {
 
     return user !== null && user.emailVerified !== false ? true : false;
   }
-  // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['home']);
-    });
-  }
-  // Auth logic to run auth providers
-  AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => {
-        this.router.navigate(['home']);
-        this.SetUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
-  }
 
-
-  
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
@@ -183,3 +158,25 @@ export class AuthService {
     return observable;
   }
 }
+
+
+
+  /*
+  // Sign in with Google
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+      this.router.navigate(['home']);
+    });
+  }
+  // Auth logic to run auth providers
+  AuthLogin(provider: any) {
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.router.navigate(['home']);
+        this.SetUserData(result.user);
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+  }*/

@@ -12,15 +12,21 @@ import { turnosService } from 'src/app/services/turnos.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 
+
+import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
 	selector: 'app-sacar-turno',
 	templateUrl: './sacar-turno.component.html',
-	styleUrls: ['./sacar-turno.component.scss']
+	styleUrls: ['./sacar-turno.component.scss'],
+
 })
 export class SacarTurnoComponent implements OnInit {
 
-
-	/*
 	public active = 1;
 	public disabled = true;
 
@@ -40,25 +46,35 @@ export class SacarTurnoComponent implements OnInit {
 
 	public paciente: Paciente = { email: '', password: '' };
 
+	firstFormGroup = this._formBuilder.group({
+		firstCtrl: ['', Validators.required],
+	});
+	secondFormGroup = this._formBuilder.group({
+		secondCtrl: ['', Validators.required],
+	});
+	thirdFormGroup = this._formBuilder.group({
+		thirdCtrl: ['', Validators.required],
+	});
+	isLinear = false;
+
+
 	constructor(
 		private usuariosSv: UsuariosService,
 		private afAuth: AngularFireAuth,
 		private especialidadesSv: EspecialidadesService,
 		private jornadasSv: JornadasService,
-		private turnosSv: turnosService
+		private turnosSv: turnosService,
+		private _formBuilder: FormBuilder
 	) { }
 
-	onNavChange(changeEvent: NgbNavChangeEvent) {
-		if (changeEvent.nextId === 3 || 2) {
-			changeEvent.preventDefault();
-		}
-	}
+	//  mat-horizontal-stepper Angular Material  /////////////////
 
-	toggleDisabled() {
-		this.disabled = !this.disabled;
-		if (this.disabled) {
-			this.active = 1;
-		}
+	goBack(stepper: MatStepper){
+		stepper.previous();
+	}
+	
+	goForward(stepper: MatStepper){
+		stepper.next();
 	}
 
 	// ESPECIALISTAS ///////////////////////////////////////////////////////////////////////////
@@ -66,7 +82,8 @@ export class SacarTurnoComponent implements OnInit {
 		let usuarios: Usuario[] = [];
 		this.usuariosSv.getItems().subscribe(res => {
 			usuarios = res;
-			this.especialistas = usuarios.filter(usr => usr.role == ERole.especialista);
+			this.especialistasFiltrados = this.especialistas = usuarios.filter(usr => usr.role == ERole.especialista);
+			//this.especialistasFiltrados = this.especialistas = usuarios.filter(usr => usr.role == ERole.especialista);
 		})
 	}
 
@@ -74,6 +91,7 @@ export class SacarTurnoComponent implements OnInit {
 	public getEspecialidades() {
 		this.especialidadesSv.getItems().subscribe(res => {
 			this.especialidades = res;
+			console.log(res);
 		});
 	}
 
@@ -138,16 +156,15 @@ export class SacarTurnoComponent implements OnInit {
 		});
 	}
 
+
+	public tomar
+
+
 	ngOnInit(): void {
 		this.getEspecialistas();
 		this.getEspecialidadesNombre();
 		this.getCurretUser();
 	}
 
-	*/
-
-
-	ngOnInit(): void {
-
-	}
 }
+

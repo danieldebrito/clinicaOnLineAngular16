@@ -9,10 +9,10 @@ import { Especialidad } from 'src/app/class/especialidad';
 export class EspecialistasGridComponent {
 
   @Input() especialistas: Especialidad[] = [];
-  @Output() itemSel = new EventEmitter();
+  @Output() especialistaSeleccionado = new EventEmitter();
 
-  public lanzarEspecialidad(especialidad: any) {
-    this.itemSel.emit(especialidad);
+  public lanzarEspecialista(especialidad: any) {
+    this.especialistaSeleccionado.emit(especialidad);
   }
 
 }

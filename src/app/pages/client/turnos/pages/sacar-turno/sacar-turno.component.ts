@@ -31,12 +31,11 @@ export class SacarTurnoComponent implements OnInit {
 	public disabled = true;
 
 	public especialistas: Especialista[] = [];
-	public especialistasFiltrados: Especialista[] = [];
-	public especialista: any = {};
+	public especialistaSeleccionado: any = {};
 
-	public especialidades: Especialidad[] = [];
+	public especialidades: string[] = [];
 	public especialidadSeleccionadaNombre: String = '';
-	public especialidadesNombre: String[] = [];
+	public especialidadesNombre: string[] = [];
 
 	public turnos: Turno[] = [];
 	public turnoSeleccionado: Turno = {};
@@ -79,36 +78,15 @@ export class SacarTurnoComponent implements OnInit {
 
 	// ESPECIALISTAS ///////////////////////////////////////////////////////////////////////////
 	public getEspecialistas() {
-		let usuarios: Usuario[] = [];
 		this.usuariosSv.getItems().subscribe(res => {
-			usuarios = res;
-			this.especialistasFiltrados = this.especialistas = usuarios.filter(usr => usr.role == ERole.especialista);
-			//this.especialistasFiltrados = this.especialistas = usuarios.filter(usr => usr.role == ERole.especialista);
+			this.especialistas = res;
 		})
 	}
 
 	// ESPECIALIDADES ////////////////////////////////////////////////////////////////////////
-	public getEspecialidades() {
-		this.especialidadesSv.getItems().subscribe(res => {
-			this.especialidades = res;
-			console.log(res);
-		});
-	}
 
-	public getEspecialidadesNombre() {
-		this.jornadasSv.getItems().subscribe(res => {
-			this.jornadas = res;
-
-			this.jornadas.forEach(e => {
-				const especialidad = e.especialidad || ''; // Asignación predeterminada en caso de ser undefined
-				this.especialidadesNombre.push(especialidad);
-			});
-
-			this.especialidadesNombre = [...new Set(this.especialidadesNombre)];
-		});
-	}
-
-	public getEspecialistasEspecialidad(event: any) {
+	
+	public getEspecialistaEspecialidades(event: any) {
 		this.especialidadSeleccionadaNombre = event;
 
 		let especialistasUIDS: string[] = this.jornadas
@@ -116,7 +94,7 @@ export class SacarTurnoComponent implements OnInit {
 			.map(j => j.userUID)
 			.filter(uid => typeof uid === 'string') as string[];
 
-		this.especialistasFiltrados = this.especialistas.filter(e => e.uid && especialistasUIDS.includes(e.uid));
+		//this.especialistasFiltrados = this.especialistas.filter(e => e.uid && especialistasUIDS.includes(e.uid));
 	}
 
 	// JORNADAS ///////////////////////////////////////////////////////////////////////////
@@ -126,9 +104,27 @@ export class SacarTurnoComponent implements OnInit {
 		});
 	}
 
-	public getjornadasEspecialista(event: Usuario) {
-		this.jornadasFiltradas = this.jornadas.filter(j => (j.especialidad == this.especialidadSeleccionadaNombre && j.userUID == event.uid));
-		this.especialista = event;
+	public getEspecialidadesEspecialista(event: Usuario){
+		this.especialidades = this.jornadas.filter(j => (j.userUID == event.uid)).map( jo => jo.especialidad );
+		this.especialistaSeleccionado = event;
+	}
+
+	public getjornadasEspecialista(especialidad: string) {
+
+		this.especialidadSeleccionadaNombre = especialidad;
+
+		//this.jornadasFiltradas = this.jornadas.filter(j => (j.especialidad == this.especialidadSeleccionadaNombre && j.userUID == event.uid));
+
+		console.log( this.jornadas );
+		console.log( this.especialidadSeleccionadaNombre );
+		console.log( especialidad );
+
+		this.jornadasFiltradas = this.jornadas.filter(j => (j.especialidad == this.especialidadSeleccionadaNombre && j.userUID == this.especialistaSeleccionado.uid));
+		
+		this.especialistaSeleccionado = event;
+
+		console.log(this.jornadasFiltradas);
+
 	}
 
 	// TURNOS ///////////////////////////////////////////////////////////////////////////
@@ -156,15 +152,10 @@ export class SacarTurnoComponent implements OnInit {
 		});
 	}
 
-
-	public tomar
-
-
 	ngOnInit(): void {
 		this.getEspecialistas();
-		this.getEspecialidadesNombre();
 		this.getCurretUser();
+		this.getJornadas();
 	}
-
 }
 

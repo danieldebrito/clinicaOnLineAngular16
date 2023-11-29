@@ -16,7 +16,6 @@
 
         <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||| 2º ELEGIR especialidades ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 
-
         <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
             <form [formGroup]="secondFormGroup">
                 <ng-template matStepLabel>Seleccionar la Especialidad</ng-template>
@@ -27,26 +26,25 @@
             </form>
 
             <div>
-                <button type="button" class="btn btn-success p-1 m-2" mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                <button type="button" class="btn btn-success p-1 m-2" mat-button matStepperPrevious><i
+                        class="fa fa-chevron-left"></i></button>
             </div>
-
         </mat-step>
 
-
         <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||| 3º ELEGIR dia ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-
 
         <mat-step [stepControl]="thirdFormGroup" label="Fill out your address">
             <form [formGroup]="secondFormGroup">
                 <ng-template matStepLabel>Seleccionar Día</ng-template>
 
-                <app-turnos-generador [jornadas]="jornadasFiltradas" [especialista]="especialistaSeleccionado"
+                <app-turnos-generador-dias [jornadas]="jornadasFiltradas" [especialista]="especialistaSeleccionado"
                     [especialidad]="especialidadSeleccionadaNombre" (thowTurno)="seleccionarTurno($event)"
                     [paciente]="paciente" (click)="goForward(stepper)">
-                </app-turnos-generador>
+                </app-turnos-generador-dias>
 
                 <div>
-                    <button type="button" class="btn btn-success p-1 m-2" mat-button matStepperPrevious><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-success p-1 m-2" mat-button matStepperPrevious><i
+                            class="fa fa-chevron-left"></i></button>
                 </div>
             </form>
         </mat-step>
@@ -64,5 +62,6 @@
                 <button mat-button (click)="stepper.reset()">Reset</button>
             </div>
         </mat-step>
+        
     </mat-stepper>
 </div>

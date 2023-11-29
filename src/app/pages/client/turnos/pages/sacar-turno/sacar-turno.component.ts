@@ -12,150 +12,127 @@ import { turnosService } from 'src/app/services/turnos.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 
-
-import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-	selector: 'app-sacar-turno',
-	templateUrl: './sacar-turno.component.html',
-	styleUrls: ['./sacar-turno.component.scss'],
-
+  selector: 'app-sacar-turno',
+  templateUrl: './sacar-turno.component.html',
+  styleUrls: ['./sacar-turno.component.scss'],
 })
 export class SacarTurnoComponent implements OnInit {
+  public active = 1;
+  public disabled = true;
 
-	public active = 1;
-	public disabled = true;
+  public especialistas: Especialista[] = [];
+  public especialistaSeleccionado: any = {};
 
-	public especialistas: Especialista[] = [];
-	public especialistaSeleccionado: any = {};
+  public especialidades: string[] = [];
+  public especialidadSeleccionadaNombre: String = '';
+  public especialidadesNombre: string[] = [];
 
-	public especialidades: string[] = [];
-	public especialidadSeleccionadaNombre: String = '';
-	public especialidadesNombre: string[] = [];
+  public turnos: Turno[] = [];
+  public turnoSeleccionado: Turno = {};
 
-	public turnos: Turno[] = [];
-	public turnoSeleccionado: Turno = {};
+  public jornadas: Jornada[] = [];
+  public jornadasFiltradas: Jornada[] = [];
 
-	public jornadas: Jornada[] = [];
-	public jornadasFiltradas: Jornada[] = [];
+  public paciente: Paciente = { email: '', password: '' };
 
-	public paciente: Paciente = { email: '', password: '' };
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+  isLinear = false;
 
-	firstFormGroup = this._formBuilder.group({
-		firstCtrl: ['', Validators.required],
-	});
-	secondFormGroup = this._formBuilder.group({
-		secondCtrl: ['', Validators.required],
-	});
-	thirdFormGroup = this._formBuilder.group({
-		thirdCtrl: ['', Validators.required],
-	});
-	isLinear = false;
+  constructor(
+    private usuariosSv: UsuariosService,
+    private afAuth: AngularFireAuth,
+    private especialidadesSv: EspecialidadesService,
+    private jornadasSv: JornadasService,
+    private turnosSv: turnosService,
+    private _formBuilder: FormBuilder
+  ) {}
 
+  //  mat-horizontal-stepper Angular Material  //////////////////////////////////////////////
+  goBack(stepper: MatStepper) {
+    stepper.previous();
+  }
 
-	constructor(
-		private usuariosSv: UsuariosService,
-		private afAuth: AngularFireAuth,
-		private especialidadesSv: EspecialidadesService,
-		private jornadasSv: JornadasService,
-		private turnosSv: turnosService,
-		private _formBuilder: FormBuilder
-	) { }
+  goForward(stepper: MatStepper) {
+    stepper.next();
+  }
 
-	//  mat-horizontal-stepper Angular Material  /////////////////
+  // ESPECIALISTAS ///////////////////////////////////////////////////////////////////////////
+  public getEspecialistas() {
+    this.usuariosSv.getItems().subscribe((res) => {
+      this.especialistas = res;
+    });
+  }
 
-	goBack(stepper: MatStepper){
-		stepper.previous();
-	}
-	
-	goForward(stepper: MatStepper){
-		stepper.next();
-	}
+  // JORNADAS /////////////////////////////////////////////////////////////////////////////////
+  public getJornadas() {
+    this.jornadasSv.getItems().subscribe((res) => {
+      this.jornadas = res;
+    });
+  }
 
-	// ESPECIALISTAS ///////////////////////////////////////////////////////////////////////////
-	public getEspecialistas() {
-		this.usuariosSv.getItems().subscribe(res => {
-			this.especialistas = res;
-		})
-	}
+  public getjornadasEspecialista(especialidad: string) {
+    this.especialidadSeleccionadaNombre = especialidad;
+    this.jornadasFiltradas = this.jornadas.filter(
+      (j) =>
+        j.especialidad == this.especialidadSeleccionadaNombre &&
+        j.userUID == this.especialistaSeleccionado.uid
+    );
+  }
 
-	// ESPECIALIDADES ////////////////////////////////////////////////////////////////////////
+  // ESPECIALIDADES ////////////////////////////////////////////////////////////////////////////
+  public getEspecialidadesEspecialista(event: Usuario) {
+    this.especialidades = this.jornadas
+      .filter((j) => j.userUID == event.uid)
+      .map((jo) => jo.especialidad);
+    this.especialistaSeleccionado = event;
+  }
 
-	
-	public getEspecialistaEspecialidades(event: any) {
-		this.especialidadSeleccionadaNombre = event;
+  // TURNOS ////////////////////////////////////////////////////////////////////////////////////
+  public seleccionarTurno(turno: Turno) {
+    this.turnoSeleccionado = turno;
+  }
 
-		let especialistasUIDS: string[] = this.jornadas
-			.filter(j => j.especialidad === event)
-			.map(j => j.userUID)
-			.filter(uid => typeof uid === 'string') as string[];
+  public tomarTurno(turno: any) {
+    turno.estado = EEstadoTurno.ocupado;
+    this.turnosSv.addItem(turno);
+  }
 
-		//this.especialistasFiltrados = this.especialistas.filter(e => e.uid && especialistasUIDS.includes(e.uid));
-	}
+  // USUARIOS //////////////////////////////////////////////////////////////////////////////////
+  private getCurretUser() {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.usuariosSv.getItemById(user.uid).subscribe((res) => {
+          this.paciente = res;
+        });
+      } else {
+        this.paciente = { email: '', password: '' };
+      }
+    });
+  }
 
-	// JORNADAS ///////////////////////////////////////////////////////////////////////////
-	public getJornadas() {
-		this.jornadasSv.getItems().subscribe(res => {
-			this.jornadas = res;
-		});
-	}
-
-	public getEspecialidadesEspecialista(event: Usuario){
-		this.especialidades = this.jornadas.filter(j => (j.userUID == event.uid)).map( jo => jo.especialidad );
-		this.especialistaSeleccionado = event;
-	}
-
-	public getjornadasEspecialista(especialidad: string) {
-
-		this.especialidadSeleccionadaNombre = especialidad;
-
-		//this.jornadasFiltradas = this.jornadas.filter(j => (j.especialidad == this.especialidadSeleccionadaNombre && j.userUID == event.uid));
-
-		console.log( this.jornadas );
-		console.log( this.especialidadSeleccionadaNombre );
-		console.log( especialidad );
-
-		this.jornadasFiltradas = this.jornadas.filter(j => (j.especialidad == this.especialidadSeleccionadaNombre && j.userUID == this.especialistaSeleccionado.uid));
-		
-		this.especialistaSeleccionado = event;
-
-		console.log(this.jornadasFiltradas);
-
-	}
-
-	// TURNOS ///////////////////////////////////////////////////////////////////////////
-	public seleccionarTurno(turno: Turno) {
-		this.turnoSeleccionado = turno;
-	}
-
-	public tomarTurno(turno: any) {
-
-		turno.estado = EEstadoTurno.ocupado;
-
-		this.turnosSv.addItem(turno);
-	}
-
-	// USUARIOS /////////////////////////////////////////////////////////////////////////
-	private getCurretUser() {
-		this.afAuth.authState.subscribe(user => {
-			if (user) {
-				this.usuariosSv.getItemById(user.uid).subscribe(res => {
-					this.paciente = res;
-				});
-			} else {
-				this.paciente = { email: '', password: '' };
-			}
-		});
-	}
-
-	ngOnInit(): void {
-		this.getEspecialistas();
-		this.getCurretUser();
-		this.getJornadas();
-	}
+  ngOnInit(): void {
+    this.getEspecialistas();
+    this.getCurretUser();
+    this.getJornadas();
+  }
 }
-

@@ -54,7 +54,9 @@ export class TurnosGeneradorDiasComponent {
   }
 
   public async generadorDeTurnos(jornada: any) {
+
     let turnosGeneradosTemp: Turno[] = [];
+    this.turnosGenerados = [];
 
     // cuantos intervalos por hora * cantidad de horas de atención
     const cant =

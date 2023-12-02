@@ -96,7 +96,9 @@ export class SacarTurnoComponent implements OnInit {
   public getEspecialidadesEspecialista(event: Usuario) {
     this.especialidades = this.jornadas
       .filter((j) => j.userUID == event.uid)
-      .map((jo) => jo.especialidad);
+      .map((jo) => jo.especialidad)
+      .filter((value, index, self) => self.indexOf(value) === index);  // elimino repeticiones
+  
     this.especialistaSeleccionado = event;
   }
 

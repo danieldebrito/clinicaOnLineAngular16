@@ -4,14 +4,14 @@ import { Paciente } from './usuarios/paciente';
 
 export class Turno {
     constructor(
-        public id?: String,
+        public id?: string,
         public fecha?: Date,
-        public dia?: String,
+        public dia?: string,
         public hora?: Number,
-        public diahora?: String,
+        public diahora?: string,
         public especialista?: Especialista,
         public paciente?: Paciente,
-        public especialidad?: String,
+        public especialidad?: string,
         public estado?: EEstadoTurno,
         public motivoRechazo?: string,
         public encuesta?: Encuesta,

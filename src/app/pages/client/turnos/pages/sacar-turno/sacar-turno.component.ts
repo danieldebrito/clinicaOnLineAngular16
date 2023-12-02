@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Jornada } from 'src/app/class/jornada';
-// import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { UsuariosService } from 'src/app/auth/services/usuarios.service';
 import { Especialista } from 'src/app/class/usuarios/especialista';
-import { Especialidad } from 'src/app/class/especialidad';
 import { EspecialidadesService } from 'src/app/services/especialidades.service';
 import { EEstadoTurno, Turno } from 'src/app/class/turno';
 import { JornadasService } from 'src/app/services/jornadas.service';
-import { ERole, Usuario } from 'src/app/auth/class/usuario';
+import { Usuario } from 'src/app/auth/class/usuario';
 import { turnosService } from 'src/app/services/turnos.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Paciente } from 'src/app/class/usuarios/paciente';
@@ -15,13 +13,8 @@ import { Paciente } from 'src/app/class/usuarios/paciente';
 import {
   FormBuilder,
   Validators,
-  FormsModule,
-  ReactiveFormsModule,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatStepper, MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-sacar-turno',

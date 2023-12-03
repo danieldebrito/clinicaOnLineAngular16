@@ -1,5 +1,3 @@
-import { Especialidad } from "./especialidad";
-
 export class Jornada {
   constructor(
     public id?: string,

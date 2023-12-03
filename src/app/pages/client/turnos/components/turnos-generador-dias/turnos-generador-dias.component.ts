@@ -2,15 +2,12 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { timestamp } from 'rxjs';
 import { Jornada } from 'src/app/class/jornada';
 import { EEstadoTurno, Turno } from 'src/app/class/turno';
 import { Paciente } from 'src/app/class/usuarios/paciente';
-import { turnosService } from 'src/app/services/turnos.service';
 
 @Component({
   selector: 'app-turnos-generador-dias',
@@ -27,18 +24,7 @@ export class TurnosGeneradorDiasComponent {
   public turnosGenerados: Turno[] = [];
   public turnosGeneradosDias: any[] = [];
 
-  @Output() thowTurno = new EventEmitter();
-
-  constructor(private turnosSv: turnosService) {}
-
-  public dias = [
-    { dia: 'lunes', numero: 1 },
-    { dia: 'martes', numero: 1 },
-    { dia: 'miercoles', numero: 1 },
-    { dia: 'jueves', numero: 1 },
-    { dia: 'viernes', numero: 1 },
-    { dia: 'sabado', numero: 1 },
-  ];
+  @Output() throwTurno = new EventEmitter<Turno>();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['jornadas'] && changes['jornadas'].currentValue) {
@@ -54,65 +40,32 @@ export class TurnosGeneradorDiasComponent {
   }
 
   public async generadorDeTurnos(jornada: any) {
-
     let turnosGeneradosTemp: Turno[] = [];
-    this.turnosGenerados = [];
 
     // cuantos intervalos por hora * cantidad de horas de atención
     const cant =
       (60 / jornada.duracionTurno) *
       (jornada.horaFinJornada - jornada.horaInicioJornada);
 
-    // Crear una función que retorna una promesa y envuelve los ciclos for
+    const today = this.getToday();
+
     const generarTurnos = async () => {
-      // primer semana
       for (let i = 0; i < cant; i++) {
-        for (let j = 0; j < 7; j++) {
-          if (j != 6 && j == parseInt(jornada.diaDeSemanaEnNumeros)) {
-            turnosGeneradosTemp.push({
-              fecha: this.sumarMinuts(i * jornada.duracionTurno + 1440 * j),
-              dia: this.getNombreDia(j),
-              diahora: this.getFechaHora(
-                this.sumarMinuts(i * jornada.duracionTurno + 1440 * j)
-              ),
-              especialista: this.especialista,
-              especialidad: this.especialidad,
-              paciente: this.paciente,
-              estado: EEstadoTurno.disponible,
-            });
-          }
-        }
-      }
+        for (let j = 0; j < 16; j++) {
+          const fechaTurno = this.sumarMinutos(
+            i * jornada.duracionTurno +
+              j * 24 * 60 +
+              jornada.horaInicioJornada * 60
+          );
 
-      // segunda semana
-      for (let i = 0; i < cant; i++) {
-        for (let j = 7; j < 13; j++) {
-          if (j != 13 && j == parseInt(jornada.diaDeSemanaEnNumeros) + 7) {
+          if (
+            fechaTurno >= today &&
+            fechaTurno.getDay() === parseInt(jornada.diaDeSemanaEnNumeros)
+          ) {
             turnosGeneradosTemp.push({
-              fecha: this.sumarMinuts(i * jornada.duracionTurno + 1440 * j),
-              dia: this.getNombreDia(parseInt(jornada.diaDeSemanaEnNumeros)),
-              diahora: this.getFechaHora(
-                this.sumarMinuts(i * jornada.duracionTurno + 1440 * j)
-              ),
-              especialista: this.especialista,
-              especialidad: this.especialidad,
-              paciente: this.paciente,
-              estado: EEstadoTurno.disponible,
-            });
-          }
-        }
-      }
-
-      // tercera semana
-      for (let i = 0; i < cant; i++) {
-        for (let j = 14; j < 20; j++) {
-          if (j != 20 && j == parseInt(jornada.diaDeSemanaEnNumeros) + 14) {
-            turnosGeneradosTemp.push({
-              fecha: this.sumarMinuts(i * jornada.duracionTurno + 1440 * j),
-              dia: this.getNombreDia(parseInt(jornada.diaDeSemanaEnNumeros)),
-              diahora: this.getFechaHora(
-                this.sumarMinuts(i * jornada.duracionTurno + 1440 * j)
-              ),
+              fecha: fechaTurno,
+              dia: this.getNombreDia(fechaTurno.getDay()),
+              diahora: this.getFechaHora(fechaTurno),
               especialista: this.especialista,
               especialidad: this.especialidad,
               paciente: this.paciente,
@@ -123,59 +76,24 @@ export class TurnosGeneradorDiasComponent {
       }
     };
 
-    // Esperar a que la función que genera turnos termine
     await Promise.resolve(generarTurnos());
 
-    // concatenamos los turnos de cada una de las jornadas
-    this.turnosGenerados = this.turnosGenerados.concat(turnosGeneradosTemp);
+    this.turnosGenerados = this.turnosGenerados
+      .concat(turnosGeneradosTemp)
+      .sort((a, b) => a.fecha.getTime() - b.fecha.getTime());
   }
 
   public getNombreDia(dia: number) {
-    let ret: string = '';
-    switch (dia) {
-      case 0:
-        ret = 'Lunes';
-        break;
-      case 1:
-        ret = 'Martes';
-        break;
-      case 2:
-        ret = 'Miercoles';
-        break;
-      case 3:
-        ret = 'Jueves';
-        break;
-      case 4:
-        ret = 'Viernes';
-        break;
-      case 5:
-        ret = 'Sabado';
-        break;
-      case 6:
-        ret = 'Dom';
-        break;
-      default:
-        console.log('No existe!');
-        break;
-    }
-    return ret;
+    const dias = ['Dom', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    return dias[dia];
   }
 
   public getFechaHora(date: Date) {
-    return (
-      date.getDate() +
-      '/' +
-      (date.getMonth() + 1) +
-      ' ' +
-      date.getHours() +
-      ':' +
-      date.getMinutes() +
-      'hs'
-    );
+    return `${date.getDate()}/${date.getMonth() + 1} ${date.getHours()}:${date.getMinutes()}hs`;
   }
 
-  public sumarMinuts(minuts: number) {
-    return new Date(this.getMonday(this.getToday()).getTime() + minuts * 60000);
+  public sumarMinutos(minutos: number) {
+    return new Date(this.getMonday(this.getToday()).getTime() + minutos * 60000);
   }
 
   public getMonday(date: Date) {
@@ -183,12 +101,11 @@ export class TurnosGeneradorDiasComponent {
     if (day !== 1) {
       date.setHours(-24 * (day - 1));
     }
-    // retorno el lunes 8:00 AM
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0);
   }
 
   public lanzarTurno(turno: Turno) {
-    this.thowTurno.emit(turno);
+    this.throwTurno.emit(turno);
   }
 
   public getToday() {

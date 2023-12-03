@@ -10,10 +10,7 @@ import { turnosService } from 'src/app/services/turnos.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 
-import {
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 
 @Component({
@@ -29,7 +26,7 @@ export class SacarTurnoComponent implements OnInit {
   public especialistaSeleccionado: any = {};
 
   public especialidades: string[] = [];
-  public especialidadSeleccionadaNombre: String = '';
+  public especialidadSeleccionadaNombre: string = '';
   public especialidadesNombre: string[] = [];
 
   public turnos: Turno[] = [];
@@ -87,18 +84,18 @@ export class SacarTurnoComponent implements OnInit {
     this.especialidadSeleccionadaNombre = especialidad;
     this.jornadasFiltradas = this.jornadas.filter(
       (j) =>
-        j.especialidad == this.especialidadSeleccionadaNombre &&
-        j.userUID == this.especialistaSeleccionado.uid
+        j.especialidad === this.especialidadSeleccionadaNombre &&
+        j.userUID === this.especialistaSeleccionado.uid
     );
   }
 
   // ESPECIALIDADES ////////////////////////////////////////////////////////////////////////////
   public getEspecialidadesEspecialista(event: Usuario) {
     this.especialidades = this.jornadas
-      .filter((j) => j.userUID == event.uid)
+      .filter((j) => j.userUID === event.uid)
       .map((jo) => jo.especialidad)
-      .filter((value, index, self) => self.indexOf(value) === index);  // elimino repeticiones
-  
+      .filter((value, index, self) => self.indexOf(value) === index); // elimino repeticiones
+
     this.especialistaSeleccionado = event;
   }
 
@@ -113,7 +110,7 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   // USUARIOS //////////////////////////////////////////////////////////////////////////////////
-  private getCurretUser() {
+  private getCurrentUser() {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.usuariosSv.getItemById(user.uid).subscribe((res) => {
@@ -127,7 +124,7 @@ export class SacarTurnoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEspecialistas();
-    this.getCurretUser();
+    this.getCurrentUser();
     this.getJornadas();
   }
 }

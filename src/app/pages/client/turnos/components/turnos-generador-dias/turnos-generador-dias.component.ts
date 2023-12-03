@@ -59,14 +59,14 @@ export class TurnosGeneradorDiasComponent {
             // Clonar la fecha actual
             const clonedDate = new Date(today);
     
-            // Sumarle i * duracionTurno minutos al clon
-            clonedDate.setMinutes(clonedDate.getMinutes() + i * jornada.duracionTurno);
+            // Sumarle i * duracionTurno minutos al clon, ( jornada.horaInicioJornada * 60 ) es la hora de inicio de la jornada en minutos
+            clonedDate.setMinutes(clonedDate.getMinutes() + ( jornada.horaInicioJornada * 60 ) +  i * jornada.duracionTurno);
     
             console.log(clonedDate);
 
             this.turnosGenerados.push({
               fecha: clonedDate,
-              //dia: this.getNombreDia(fechaTurno.getDay()),
+              dia: this.getNombreDia(clonedDate.getDay()),
               //diahora: this.getFechaHora(fechaTurno),
               especialista: this.especialista,
               especialidad: this.especialidad,
@@ -79,6 +79,19 @@ export class TurnosGeneradorDiasComponent {
           }
         }
       }
+    }
+
+    public getNombreDia(dia: number) {
+      const dias = [
+        'Dom',
+        'Lunes',
+        'Martes',
+        'Miércoles',
+        'Jueves',
+        'Viernes',
+        'Sábado',
+      ];
+      return dias[dia];
     }
     
     private getToday() {

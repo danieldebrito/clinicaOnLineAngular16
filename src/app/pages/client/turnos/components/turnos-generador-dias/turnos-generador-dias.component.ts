@@ -40,6 +40,46 @@ export class TurnosGeneradorDiasComponent {
   }
 
   public async generadorDeTurnos(jornada: any) {
+    // cuantos intervalos por hora * cantidad de horas de atención
+    const cant =
+      (60 / jornada.duracionTurno) *
+      (jornada.horaFinJornada - jornada.horaInicioJornada);
+
+      for (let j = 0; j < 16; j++) {
+        // le sumo días a la fecha de hoy hasta 15 días
+        const today = this.getToday();
+        let diaTurno = today.setDate(today.getDate() + j);
+    
+        // si el número de día coincide con el de la jornada, cargo horarios
+        if (today.getDay() === parseInt(jornada.diaDeSemanaEnNumeros)) {
+          for (let i = 0; i <= cant; i++) {
+            // Clonar la fecha actual
+            const clonedDate = new Date(today);
+    
+            // Sumarle i * duracionTurno minutos al clon
+            clonedDate.setMinutes(clonedDate.getMinutes() + i * jornada.duracionTurno);
+    
+            console.log(clonedDate);
+          }
+        }
+      }
+    }
+    
+    private getToday() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Establecer las horas, minutos, segundos y milisegundos a 0
+      return today;
+    }
+
+  
+  public lanzarTurno(turno: Turno) {
+    this.throwTurno.emit(turno);
+
+}
+}
+
+/**
+   public async generadorDeTurnos(jornada: any) {
     let turnosGeneradosTemp: Turno[] = [];
 
     // cuantos intervalos por hora * cantidad de horas de atención
@@ -82,18 +122,30 @@ export class TurnosGeneradorDiasComponent {
       .concat(turnosGeneradosTemp)
       .sort((a, b) => a.fecha.getTime() - b.fecha.getTime());
   }
-
+ 
   public getNombreDia(dia: number) {
-    const dias = ['Dom', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const dias = [
+      'Dom',
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
+    ];
     return dias[dia];
   }
 
   public getFechaHora(date: Date) {
-    return `${date.getDate()}/${date.getMonth() + 1} ${date.getHours()}:${date.getMinutes()}hs`;
+    return `${date.getDate()}/${
+      date.getMonth() + 1
+    } ${date.getHours()}:${date.getMinutes()}hs`;
   }
 
   public sumarMinutos(minutos: number) {
-    return new Date(this.getMonday(this.getToday()).getTime() + minutos * 60000);
+    return new Date(
+      this.getMonday(this.getToday()).getTime() + minutos * 60000
+    );
   }
 
   public getMonday(date: Date) {
@@ -104,11 +156,4 @@ export class TurnosGeneradorDiasComponent {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0);
   }
 
-  public lanzarTurno(turno: Turno) {
-    this.throwTurno.emit(turno);
-  }
-
-  public getToday() {
-    return new Date();
-  }
-}
+*/

@@ -34,6 +34,9 @@ export class TurnosGeneradorDiasComponent {
   }
 
   public generateTurnos(jornadas: Jornada[]) {
+
+    this.turnosGenerados = [];
+
     jornadas.forEach((element) => {
       this.generadorDeTurnos(element);
     });
@@ -60,6 +63,19 @@ export class TurnosGeneradorDiasComponent {
             clonedDate.setMinutes(clonedDate.getMinutes() + i * jornada.duracionTurno);
     
             console.log(clonedDate);
+
+            this.turnosGenerados.push({
+              fecha: clonedDate,
+              //dia: this.getNombreDia(fechaTurno.getDay()),
+              //diahora: this.getFechaHora(fechaTurno),
+              especialista: this.especialista,
+              especialidad: this.especialidad,
+              paciente: this.paciente,
+              estado: EEstadoTurno.disponible,
+            });
+
+
+
           }
         }
       }

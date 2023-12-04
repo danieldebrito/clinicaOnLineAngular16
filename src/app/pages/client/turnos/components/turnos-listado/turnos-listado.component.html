@@ -2,7 +2,7 @@
     <div class="col-sm-2" *ngFor="let item of turnos">
         <div class="row row-cols-1 row-cols-md-1 g-4">
             <div class="col">
-                <app-turno-card [turno]="item"  (click)="lanzarTurno(item)"></app-turno-card>
+                <turno-card-dia-horario [turno]="item"  (click)="lanzarTurno(item)"></turno-card-dia-horario>
             </div>
         </div>
     </div>

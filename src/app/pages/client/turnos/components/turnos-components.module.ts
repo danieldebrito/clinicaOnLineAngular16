@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { TurnosGeneradorDiasComponent } from './turnos-generador-dias/turnos-generador-dias.component';
 import { TurnoCardDiaComponent } from './turno-card-dia/turno-card-dia.component';
 import { TurnosListadoComponent } from './turnos-listado/turnos-listado.component';
-import { TurnoCardComponent } from './turno-card/turno-card.component';
+import { TurnoCardHorarioComponent } from './turno-card-dia-horario/turno-card-dia-horario.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { TurnoCardComponent } from './turno-card/turno-card.component';
     TurnosGeneradorDiasComponent,
     TurnoCardDiaComponent,
     TurnosListadoComponent,
-    TurnoCardComponent
+    TurnoCardHorarioComponent
   ],
   imports: [
     CommonModule,

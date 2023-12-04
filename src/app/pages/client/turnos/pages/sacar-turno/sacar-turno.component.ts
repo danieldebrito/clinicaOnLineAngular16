@@ -134,8 +134,16 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   public SeleccionarTurno(event) {
-    console.log(event);
+    
     this.turnoSeleccionado = event;
+    console.log(this.turnoSeleccionado);
+
+/**
+ *     this.turnoSeleccionado = event;
+    this.turnoSeleccionado.especialidad = event.especialidadSeleccionadaNombre;
+    this.turnoSeleccionado.especialista = event.especialistaSeleccionado;
+    this.turnoSeleccionado.paciente = event.paciente;
+ */
   }
 
   ngOnInit(): void {

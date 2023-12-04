@@ -8,6 +8,6 @@ import { Especialista } from 'src/app/class/usuarios/especialista';
 })
 export class EspecialistaCardComponent {
 
-  @Input() especialista: any = { };
+  @Input() especialista: Especialista = { email: '', password: '' };
 
 }

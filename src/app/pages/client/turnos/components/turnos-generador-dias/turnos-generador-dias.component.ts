@@ -25,7 +25,7 @@ export class TurnosGeneradorDiasComponent {
   public turnosGenerados: Turno[] = [];
   public turnosGeneradosDias: TurnoDay[] = [];
 
-  @Output() throwTurno = new EventEmitter<Turno>();
+  @Output() throwTurno = new EventEmitter<{ turnoSelect: TurnoDay; turnos: Turno[] }>();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['jornadas'] && changes['jornadas'].currentValue) {
@@ -116,8 +116,8 @@ export class TurnosGeneradorDiasComponent {
     return today;
   }
 
-  public lanzarTurno(turno: Turno) {
-    this.throwTurno.emit(turno);
-    console.log(turno);
+  public lanzarTurno(turno: TurnoDay) {
+    this.throwTurno.emit({ turnoSelect: turno, turnos: this.turnosGenerados });
+    console.log({ turnoSelect: turno, turnos: this.turnosGenerados });
   }
 }

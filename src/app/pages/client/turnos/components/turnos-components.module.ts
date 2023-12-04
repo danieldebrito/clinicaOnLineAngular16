@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TurnosListComponent } from './turnos-list/turnos-list.component';
 import { BarraBusquedaComponent } from './barra-busqueda/barra-busqueda.component';
 import { TurnosGridComponent } from './turnos-grid/turnos-grid.component';
 import { TurnoDetalleComponent } from './turno-detalle/turno-detalle.component';
@@ -9,15 +8,18 @@ import { EspecialistaComponentsModule } from '../../especialistas/components/esp
 import { FormsModule } from '@angular/forms';
 import { TurnosGeneradorDiasComponent } from './turnos-generador-dias/turnos-generador-dias.component';
 import { TurnoCardDiaComponent } from './turno-card-dia/turno-card-dia.component';
+import { TurnosListadoComponent } from './turnos-listado/turnos-listado.component';
+import { TurnoCardComponent } from './turno-card/turno-card.component';
 
 @NgModule({
   declarations: [
-    TurnosListComponent,
     BarraBusquedaComponent,
     TurnosGridComponent,
     TurnoDetalleComponent,
     TurnosGeneradorDiasComponent,
-    TurnoCardDiaComponent
+    TurnoCardDiaComponent,
+    TurnosListadoComponent,
+    TurnoCardComponent
   ],
   imports: [
     CommonModule,
@@ -26,12 +28,11 @@ import { TurnoCardDiaComponent } from './turno-card-dia/turno-card-dia.component
     FormsModule
   ],
   exports: [
-    TurnosListComponent,
     BarraBusquedaComponent,
     TurnosGridComponent,
     TurnoDetalleComponent,
     TurnosGeneradorDiasComponent,
-    TurnoCardDiaComponent
+    TurnosListadoComponent
   ]
 })
 export class TurnosComponentsModule { }

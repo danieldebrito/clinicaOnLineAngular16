@@ -100,13 +100,14 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   // TURNOS ////////////////////////////////////////////////////////////////////////////////////
-  public seleccionarTurno(turno: Turno) {
-    this.turnoSeleccionado = turno;
+  public seleccionarTurno(turno) {
+    this.turnoSeleccionado = turno.turnos;
+    console.table(turno.turnos);
   }
 
   public tomarTurno(turno: any) {
     turno.estado = EEstadoTurno.ocupado;
-    this.turnosSv.addItem(turno);
+    this.turnosSv.addItem(turno.turnos.turnos);
   }
 
   // USUARIOS //////////////////////////////////////////////////////////////////////////////////

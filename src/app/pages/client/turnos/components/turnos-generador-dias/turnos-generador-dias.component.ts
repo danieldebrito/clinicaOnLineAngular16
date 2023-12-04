@@ -16,14 +16,17 @@ import { Paciente } from 'src/app/class/usuarios/paciente';
   styleUrls: ['./turnos-generador-dias.component.scss'],
 })
 export class TurnosGeneradorDiasComponent {
+
+  public turnosGenerados: Turno[] = [];
+  public turnosGeneradosDias: TurnoDay[] = [];
+
+
   @Input() jornadas: Jornada[] = [];
   @Input() especialista: any = {};
   @Input() especialidad: string = '';
   @Input() paciente: Paciente = { email: '', password: '' };
-
   @Input() turnos: Turno[] = [];
-  public turnosGenerados: Turno[] = [];
-  public turnosGeneradosDias: TurnoDay[] = [];
+
 
   @Output() throwTurno = new EventEmitter<{ turnoSelect: TurnoDay; turnos: Turno[] }>();
 
@@ -81,6 +84,7 @@ export class TurnosGeneradorDiasComponent {
 
     this.turnosGeneradosDias = this.turnosGenerados
       .map((tg) => ({
+        fecha: tg.fecha,
         diaNombre: tg.dia,
         dia: tg.fecha.getDate(),
         mes: tg.fecha.getMonth(),
@@ -117,7 +121,7 @@ export class TurnosGeneradorDiasComponent {
   }
 
   public lanzarTurno(turno: TurnoDay) {
+    //console.log({ turnoSelect: turno, turnos: this.turnosGenerados });
     this.throwTurno.emit({ turnoSelect: turno, turnos: this.turnosGenerados });
-    console.log({ turnoSelect: turno, turnos: this.turnosGenerados });
   }
 }

@@ -30,7 +30,7 @@ export class SacarTurnoComponent implements OnInit {
   public especialidadesNombre: string[] = [];
 
   public turnos: Turno[] = [];
-  public turnoSeleccionado: Turno = {};
+  public turnosHorariosDia: Turno[] = [];
 
   public jornadas: Jornada[] = [];
   public jornadasFiltradas: Jornada[] = [];
@@ -100,11 +100,19 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   // TURNOS ////////////////////////////////////////////////////////////////////////////////////
-  public seleccionarTurno(turno) {
-    this.turnoSeleccionado = turno.turnos;
-    console.table(turno.turnos);
+  public seleccionarTurno(event) {
+    console.log(event.turnoSelect);
+    console.log(event.turnos);
+  
+    this.turnosHorariosDia = event.turnos.filter(e =>
+      e.fecha.getDate() === event.turnoSelect.fecha.getDate() &&
+      e.fecha.getMonth() === event.turnoSelect.fecha.getMonth() &&
+      e.fecha.getFullYear() === event.turnoSelect.fecha.getFullYear()
+    );
+  
+    console.table(this.turnosHorariosDia);
   }
-
+  
   public tomarTurno(turno: any) {
     turno.estado = EEstadoTurno.ocupado;
     this.turnosSv.addItem(turno.turnos.turnos);

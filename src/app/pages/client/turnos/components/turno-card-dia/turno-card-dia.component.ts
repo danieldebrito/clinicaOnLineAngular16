@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { Turno } from 'src/app/class/turno';
 import { TurnoDay } from 'src/app/class/turnoDay';
 
 @Component({
@@ -7,5 +8,9 @@ import { TurnoDay } from 'src/app/class/turnoDay';
   styleUrls: ['./turno-card-dia.component.scss'],
 })
 export class TurnoCardDiaComponent {
+  public turnosGenerados: Turno[] = [];
+
+
   @Input() turnoDia: TurnoDay = {};
+
 }

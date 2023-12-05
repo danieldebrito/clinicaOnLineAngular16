@@ -6,21 +6,13 @@
                 <!--
                     <app-especialista-card [especialista]="turno?.especialista"></app-especialista-card>
                 -->
-
-                {{ turno.especialidad }}
-
-                {{ turno.especialista?.nombre }}
-
-                <app-especialista-card *ngIf="turno.especialista" [especialista]="turno.especialista"></app-especialista-card>
-
-            </div>
-            <div class="col-sm-6">
-                <!--
-                    <app-especialidades-item [especialidad]="turno?.especialidad"></app-especialidades-item>
-                -->
-
-
-
+                <div class="mp3">
+                    <p class="fs-4">{{ turno.especialidad }}</p>
+                </div>
+            
+                <div class="mt-3">
+                    <app-especialista-card *ngIf="turno.especialista" [especialista]="turno.especialista"></app-especialista-card>
+                </div>
 
             </div>
         </div>

@@ -93,13 +93,12 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
     userFormulario.uid = userFirebase.uid;
     userFormulario.email = userFirebase.email;
     userFormulario.displayName = userFirebase.displayName;
-    userFormulario.photoURL = userFirebase.photoURL;
+    //userFormulario.photoURL = userFirebase.photoURL;
     userFormulario.emailVerified = userFirebase.emailVerified;
 
     console.log(userFirebase.emailVerified);
     
     return userRef.set(userFormulario, {
-      
       merge: true,
     });
   }
@@ -159,24 +158,3 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
   }
 }
 
-
-
-  /*
-  // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['home']);
-    });
-  }
-  // Auth logic to run auth providers
-  AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => {
-        this.router.navigate(['home']);
-        this.SetUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
-  }*/

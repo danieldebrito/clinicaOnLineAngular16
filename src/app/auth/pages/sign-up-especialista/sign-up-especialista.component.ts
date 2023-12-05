@@ -52,7 +52,7 @@ export class SignUpEspecialistaComponent implements OnInit {
     if (this.image) {
       this.storageService.uploadFile(this.image)
         .then(downloadUrl => {
-          //console.log('Archivo subido correctamente. URL:', downloadUrl);
+          console.log('Archivo subido correctamente. URL:', downloadUrl);
           this.urlPhotoPath = downloadUrl;
 
           // para mostrar la imagen en el html ////////////////////////////////////////////////////////

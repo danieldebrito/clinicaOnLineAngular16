@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Especialidad } from 'src/app/class/especialidad';
+import { StorageService } from 'src/app/services/File/storage.service';
 import { EspecialidadesService } from 'src/app/services/especialidades.service';
 
 
@@ -14,28 +15,28 @@ export class EspecialidadesComponent implements OnInit {
   public showAdd: boolean = false;
   public especialidades: Especialidad[] = [];
 
+  public photoSelected: any = 'assets/images/icons/default.png';
+  public image: any = {};
+  public urlPhotoPath = 'assets/images/icons/default.png';
+
   createForm = new FormGroup({
     nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
     duracionTurno: new FormControl( 30, [Validators.required, Validators.minLength(2)]),
   });
 
-  constructor( private especialidadesSv: EspecialidadesService) { }
+  constructor( 
+    private storageService: StorageService,
+    private especialidadesSv: EspecialidadesService
+    ) { }
   
     public create() {
     if (this.createForm.valid) {
-
-
       const newItem: Especialidad = {
-        //id: this.createForm.value.id ?? '',
-        //emailVerified: this.createForm.value.emailVerified ?? '',
-
         nombre: this.createForm.value.nombre ?? '',
         habilitado: true ?? false,
+        photoURL: this.urlPhotoPath,
       };
-
       this.especialidadesSv.addItem(newItem);
-
-      console.log(newItem);
       this.ChangeView();
     } else {
       console.log("El formulario no es válido, realiza alguna acción o muestra un mensaje de error.");
@@ -57,9 +58,26 @@ export class EspecialidadesComponent implements OnInit {
     } );
   }
 
+  onFileSelected(event: any) {
+    this.image = event.target.files[0];
+    if (this.image) {
+      this.storageService.uploadFile(this.image)
+        .then(downloadUrl => {
+          console.log('Archivo subido correctamente. URL:', downloadUrl);
+          this.urlPhotoPath = downloadUrl;
+
+          // para mostrar la imagen en el html ////////////////////////////////////////////////////////
+          const reader = new FileReader();
+          reader.onload = e => this.photoSelected = reader.result;
+          reader.readAsDataURL(this.image);
+        })
+        .catch(error => {
+          console.error('Error al subir el archivo:', error);
+        });
+    }
+  }
+
   ngOnInit(): void {
     this.getEspecialidades();
   }
-
-
 }

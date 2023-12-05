@@ -120,7 +120,7 @@ export class SignUpPacienteComponent {
 
       this.authService.SignUp(newEspecialista);
       // console.log(newEspecialista);
-      this.usuariosService.addItem(newEspecialista);
+      //this.usuariosService.addItem(newEspecialista);
 
     } else {
       console.log("El formulario no es válido, realiza alguna acción o muestra un mensaje de error.");

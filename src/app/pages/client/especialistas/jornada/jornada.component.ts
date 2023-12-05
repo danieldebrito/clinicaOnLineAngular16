@@ -29,7 +29,7 @@ export class JornadaComponent implements OnInit {
     horaInicioJornada: new FormControl(8, [Validators.required, Validators.min(1), Validators.max(60), Validators.pattern("^[0-9]*$")]),
     horaFinJornada: new FormControl(19, [Validators.required, Validators.min(1), Validators.max(60), Validators.pattern("^[0-9]*$")]),
     duracionTurno: new FormControl(19, [Validators.required, Validators.min(1), Validators.max(60), Validators.pattern("^[0-9]*$")]),
-    //especialidad: new FormControl({}, [Validators.required]),
+    especialidad: new FormControl([], [Validators.required]),
   });
 
   constructor(
@@ -57,16 +57,13 @@ export class JornadaComponent implements OnInit {
     });
   }
 
-  public onEspecialidadChange(event: any) {
-
-
-
-    // Accede a la opción seleccionada directamente desde el evento
-    this.especialidad = event.target;
-    console.log(this.especialidad);
-  }
-  
-
+  // Maneja el cambio en el select
+onEspecialidadChange(event: any) {
+  // Obtén el objeto de especialidad seleccionado
+  this.especialidad = this.especialidades.find(
+    (item) => item.nombre.toLowerCase() == event.target.value.toLowerCase()
+  );
+}
 
   ///* jornadas//////////////////////////////////////////////////////////////////////////////////
   public addJornada() {
@@ -83,9 +80,6 @@ export class JornadaComponent implements OnInit {
       userUID: this.userLoggedUID ?? '',
     };
 
-    //newItem.especialidad = this.especialidad;
-
-
     console.log(newItem);
 
     this.jornadasSv.addItem(newItem);
@@ -96,7 +90,7 @@ export class JornadaComponent implements OnInit {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.jornadasSv.getItems().subscribe(res => {
-          this.jornadas = res.filter( j => j.userUID == user.uid);
+          this.jornadas = res.filter(j => j.userUID == user.uid);
         });
       } else {
         this.jornadas = [];

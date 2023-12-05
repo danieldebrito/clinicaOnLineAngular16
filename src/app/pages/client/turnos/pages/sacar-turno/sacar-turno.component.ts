@@ -92,17 +92,13 @@ export class SacarTurnoComponent implements OnInit {
   // ESPECIALIDADES ////////////////////////////////////////////////////////////////////////////
   public getEspecialidadesEspecialista(event: Usuario) {
     this.especialidades = this.jornadas
-      .filter((j) => j.userUID === event.uid)
-      .map((jo) => jo.especialidad)
-      .filter((value, index, self) => self.indexOf(value) === index); // elimino repeticiones
+      .filter((j) => j.userUID === event.uid && j.especialidad) // Verificar especialidad no sea undefined
+      .map((j) => j.especialidad);
 
-      console.log(this.especialidades);
+    console.log(this.especialidades);
 
     this.especialistaSeleccionado = event;
   }
-
-
-  
 
   // TURNOS ////////////////////////////////////////////////////////////////////////////////////
   public seleccionarHorariosPorDiaTurnos(event) {
@@ -138,7 +134,7 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   public SeleccionarTurno(event) {
-    
+
     this.turnoSeleccionado = event;
     console.log(this.turnoSeleccionado);
 

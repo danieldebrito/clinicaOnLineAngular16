@@ -5,6 +5,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Especialidad } from 'src/app/class/especialidad';
 import { Jornada } from 'src/app/class/jornada';
 import { EEstadoTurno, Turno } from 'src/app/class/turno';
 import { TurnoDay } from 'src/app/class/turnoDay';
@@ -23,7 +24,7 @@ export class TurnosGeneradorDiasComponent {
 
   @Input() jornadas: Jornada[] = [];
   @Input() especialista: any = {};
-  @Input() especialidad: string = '';
+  @Input() especialidad: Especialidad = {};
   @Input() paciente: Paciente = { email: '', password: '' };
   @Input() turnos: Turno[] = [];
 

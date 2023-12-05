@@ -19,7 +19,7 @@ export class JornadaComponent implements OnInit {
 
 
   public especialidades: Especialidad[] = [];
-  public especialidad: string = '';
+  public especialidad: Especialidad = {};
 
   public jornadas: Jornada[] = [];
   //public jornada: Jornada = {};
@@ -29,7 +29,7 @@ export class JornadaComponent implements OnInit {
     horaInicioJornada: new FormControl(8, [Validators.required, Validators.min(1), Validators.max(60), Validators.pattern("^[0-9]*$")]),
     horaFinJornada: new FormControl(19, [Validators.required, Validators.min(1), Validators.max(60), Validators.pattern("^[0-9]*$")]),
     duracionTurno: new FormControl(19, [Validators.required, Validators.min(1), Validators.max(60), Validators.pattern("^[0-9]*$")]),
-    especialidad: new FormControl({}, [Validators.required]),
+    //especialidad: new FormControl({}, [Validators.required]),
   });
 
   constructor(
@@ -57,11 +57,15 @@ export class JornadaComponent implements OnInit {
     });
   }
 
-  public onEspecialidadChange(value: any) {
-    this.especialidad = value.target.value;
+  public onEspecialidadChange(event: any) {
 
+
+
+    // Accede a la opción seleccionada directamente desde el evento
+    this.especialidad = event.target;
     console.log(this.especialidad);
   }
+  
 
 
   ///* jornadas//////////////////////////////////////////////////////////////////////////////////
@@ -75,9 +79,11 @@ export class JornadaComponent implements OnInit {
       horaInicioJornada: this.formulario.value.horaInicioJornada ?? 0,
       horaFinJornada: this.formulario.value.horaFinJornada ?? 0,
       duracionTurno: this.formulario.value.duracionTurno ?? 0,
-      especialidad: this.especialidad ?? '',
+      especialidad: this.especialidad,
       userUID: this.userLoggedUID ?? '',
     };
+
+    //newItem.especialidad = this.especialidad;
 
 
     console.log(newItem);

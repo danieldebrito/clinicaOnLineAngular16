@@ -94,8 +94,8 @@
             </div>
 
             <div class="mt-2 col-sm-3">
-                <select class="form-control" id="horaFinJornada" formControlName="especialidad" (change)="onEspecialidadChange($event)">
-                  <option [value]="item.nombre" *ngFor="let item of especialidades">{{ item.nombre }}</option>
+                <select class="form-control" id="horaFinJornada" formControlName="especialidad" (change)="onEspecialidadChange($event)" >
+                  <option [value]="item" *ngFor="let item of especialidades"  >{{ item.nombre }}</option>
                 </select>
               </div>
 

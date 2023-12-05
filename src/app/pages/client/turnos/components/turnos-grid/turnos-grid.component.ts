@@ -14,7 +14,7 @@ export class TurnosGridComponent {
 
   public aplicarFiltro(): void {
     this.turnos = this.turnos.filter((turno: Turno) => {
-      const especialidadIncluida = turno.especialidad?.toLowerCase().includes(this.filtroEspecialidad.toLowerCase());
+      const especialidadIncluida = turno.especialidad?.nombre.toLowerCase().includes(this.filtroEspecialidad.toLowerCase());
       const especialistaIncluido = turno.especialista?.nombre?.toLowerCase().includes(this.filtroEspecialidad.toLowerCase());
       
       return especialidadIncluida || especialistaIncluido;

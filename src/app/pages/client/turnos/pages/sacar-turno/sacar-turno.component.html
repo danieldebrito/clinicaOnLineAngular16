@@ -38,7 +38,7 @@
                 <ng-template matStepLabel>Seleccionar Día</ng-template>
 
                 <app-turnos-generador-dias [jornadas]="jornadasFiltradas" [especialista]="especialistaSeleccionado"
-                    [especialidad]="especialidadSeleccionadaNombre"
+                    [especialidad]="especialidadSeleccionada"
                     (throwTurno)="seleccionarHorariosPorDiaTurnos($event)" [paciente]="paciente"
                     (click)="goForward(stepper)">
                 </app-turnos-generador-dias>

@@ -1,4 +1,5 @@
 import { Encuesta } from './encuesta';
+import { Especialidad } from './especialidad';
 import { Especialista } from './usuarios/especialista';
 import { Paciente } from './usuarios/paciente';
 
@@ -11,7 +12,7 @@ export class Turno {
         public diahora?: string,
         public especialista?: Especialista,
         public paciente?: Paciente,
-        public especialidad?: string,
+        public especialidad?: Especialidad,
         public estado?: EEstadoTurno,
         public motivoRechazo?: string,
         public encuesta?: Encuesta,

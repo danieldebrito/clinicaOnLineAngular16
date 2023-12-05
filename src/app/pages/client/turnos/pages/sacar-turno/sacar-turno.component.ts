@@ -12,6 +12,7 @@ import { Paciente } from 'src/app/class/usuarios/paciente';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
+import { Especialidad } from 'src/app/class/especialidad';
 
 @Component({
   selector: 'app-sacar-turno',
@@ -25,9 +26,8 @@ export class SacarTurnoComponent implements OnInit {
   public especialistas: Especialista[] = [];
   public especialistaSeleccionado: any = {};
 
-  public especialidades: string[] = [];
-  public especialidadSeleccionadaNombre: string = '';
-  public especialidadesNombre: string[] = [];
+  public especialidades: Especialidad[] = [];
+  public especialidadSeleccionada: Especialidad = {};
 
   public turnos: Turno[] = [];
   public turnosHorariosDia: Turno[] = [];
@@ -52,7 +52,6 @@ export class SacarTurnoComponent implements OnInit {
   constructor(
     private usuariosSv: UsuariosService,
     private afAuth: AngularFireAuth,
-    private especialidadesSv: EspecialidadesService,
     private jornadasSv: JornadasService,
     private turnosSv: turnosService,
     private _formBuilder: FormBuilder
@@ -81,11 +80,11 @@ export class SacarTurnoComponent implements OnInit {
     });
   }
 
-  public getjornadasEspecialista(especialidad: string) {
-    this.especialidadSeleccionadaNombre = especialidad;
+  public getjornadasEspecialista(especialidad: Especialidad) {
+    this.especialidadSeleccionada = especialidad;
     this.jornadasFiltradas = this.jornadas.filter(
       (j) =>
-        j.especialidad === this.especialidadSeleccionadaNombre &&
+        j.especialidad === this.especialidadSeleccionada &&
         j.userUID === this.especialistaSeleccionado.uid
     );
   }
@@ -97,8 +96,13 @@ export class SacarTurnoComponent implements OnInit {
       .map((jo) => jo.especialidad)
       .filter((value, index, self) => self.indexOf(value) === index); // elimino repeticiones
 
+      console.log(this.especialidades);
+
     this.especialistaSeleccionado = event;
   }
+
+
+  
 
   // TURNOS ////////////////////////////////////////////////////////////////////////////////////
   public seleccionarHorariosPorDiaTurnos(event) {

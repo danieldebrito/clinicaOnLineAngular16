@@ -69,7 +69,7 @@ export class SacarTurnoComponent implements OnInit {
   // ESPECIALISTAS ///////////////////////////////////////////////////////////////////////////
   public getEspecialistas() {
     this.usuariosSv.getItems().subscribe((res) => {
-      this.especialistas = res.filter( usr => usr.role == ERole.especialista );
+      this.especialistas = res.filter((usr) => usr.role == ERole.especialista);
     });
   }
 
@@ -134,11 +134,10 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   public SeleccionarTurno(event) {
-
     this.turnoSeleccionado = event;
     console.log(this.turnoSeleccionado);
 
-/**
+    /**
  *     this.turnoSeleccionado = event;
     this.turnoSeleccionado.especialidad = event.especialidadSeleccionadaNombre;
     this.turnoSeleccionado.especialista = event.especialistaSeleccionado;

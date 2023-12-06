@@ -11,7 +11,7 @@ export class EspecialidadesCardComponent {
   @Input() especialidad: Especialidad = {};
   @Output() especialidadSeleccionada = new EventEmitter();
 
-  public lanzarEspecialidad(especialidad: Especialidad) {
+  public lanzraEspecialidad(especialidad: Especialidad) {
     this.especialidadSeleccionada.emit(especialidad);
   }
 

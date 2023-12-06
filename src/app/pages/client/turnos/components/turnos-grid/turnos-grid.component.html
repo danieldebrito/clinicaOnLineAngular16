@@ -9,7 +9,7 @@
     <div class="col-sm-2" *ngFor="let item of turnos">
         <div class="row row-cols-1 row-cols-md-1 g-4">
             <div class="col">
-                <app-turno-detalle [turno]="item" (click)="lanzarTurno(item)"></app-turno-detalle>
+                <app-turno-card-detalle [turno]="item" ></app-turno-card-detalle>
             </div>
         </div>
     </div>

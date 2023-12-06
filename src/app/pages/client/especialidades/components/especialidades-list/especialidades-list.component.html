@@ -3,17 +3,8 @@
         <table class="table user-list">
             <tbody *ngFor="let item of especialidades">
                 <tr>
-                    <td>
-                        <img class="img-rounded" src="{{ item.photoURL }}" alt="" srcset="">
-                    </td>
-                    
-                    <td>
-                        <p class="fs-4">{{ item.nombre }}</p>
-                    </td>
 
-                    <td> <a class="btn btn-primary btn-sm " (click)="lanzarEspecialidad(item)"> <i
-                                class="fa fa-check-circle" aria-hidden="true"></i> </a>
-                    </td>
+                      <app-especialidades-card (especialidadSeleccionada)="lanzarEspecialidad(item)" [especialidad]="item" ></app-especialidades-card>
 
                 </tr>
             </tbody>

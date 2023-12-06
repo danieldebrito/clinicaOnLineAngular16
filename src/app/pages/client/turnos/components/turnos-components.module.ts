@@ -39,7 +39,8 @@ import { TurnoCardDetalleComponent } from './turno-card-detalle/turno-card-detal
     TurnoCardDiaComponent,
     TurnosListadoComponent,
     TurnoCardHorarioComponent,
-    TurnoCardComponent
+    TurnoCardComponent,
+    TurnoCardDetalleComponent
   ]
 })
 export class TurnosComponentsModule { }

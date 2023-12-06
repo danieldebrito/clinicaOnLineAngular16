@@ -70,13 +70,14 @@
         <mat-step>
             <ng-template matStepLabel>Resumen</ng-template>
 
-            <app-turno-detalle [turno]="turnoSeleccionado" (thowTurno)="tomarTurno($event)"></app-turno-detalle>
+            <app-turno-detalle [turno]="turnoSeleccionado" (thowTurno)="tomarTurno($event)" (click)="stepper.reset()"
+                (click)="tinyAlert()"></app-turno-detalle>
 
             <div>
-                <button type="button" class="btn btn-success p-1 m-2" mat-button matStepperPrevious><i
-                        class="fa fa-chevron-left"></i></button>
+                <button type="button" class="btn btn-success p-1 m-2" mat-button matStepperPrevious>
+                    <i class="fa fa-chevron-left"></i>
+                </button>
             </div>
         </mat-step>
-
     </mat-stepper>
 </div>

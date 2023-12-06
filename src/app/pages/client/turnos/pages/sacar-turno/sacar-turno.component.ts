@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Jornada } from 'src/app/class/jornada';
 import { UsuariosService } from 'src/app/auth/services/usuarios.service';
 import { Especialista } from 'src/app/class/usuarios/especialista';
-import { EspecialidadesService } from 'src/app/services/especialidades.service';
 import { EEstadoTurno, Turno } from 'src/app/class/turno';
 import { JornadasService } from 'src/app/services/jornadas.service';
 import { ERole, Usuario } from 'src/app/auth/class/usuario';
@@ -13,6 +12,9 @@ import { Paciente } from 'src/app/class/usuarios/paciente';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Especialidad } from 'src/app/class/especialidad';
+
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-sacar-turno',
@@ -56,6 +58,10 @@ export class SacarTurnoComponent implements OnInit {
     private turnosSv: turnosService,
     private _formBuilder: FormBuilder
   ) {}
+
+  tinyAlert() {
+    Swal.fire('Turno Solicitado con exito !!');
+  }
 
   //  mat-horizontal-stepper Angular Material  //////////////////////////////////////////////
   goBack(stepper: MatStepper) {
@@ -111,13 +117,17 @@ export class SacarTurnoComponent implements OnInit {
         e.fecha.getMonth() === event.turnoSelect.fecha.getMonth() &&
         e.fecha.getFullYear() === event.turnoSelect.fecha.getFullYear()
     );
+  }
 
-    console.table(this.turnosHorariosDia);
+  public SeleccionarTurno(event) {
+    this.turnoSeleccionado = event;
   }
 
   public tomarTurno(turno: any) {
     turno.estado = EEstadoTurno.ocupado;
-    this.turnosSv.addItem(turno.turnos.turnos);
+    this.turnosSv.addItem(turno);
+
+    this.turnoSeleccionado = {};
   }
 
   // USUARIOS //////////////////////////////////////////////////////////////////////////////////
@@ -131,18 +141,6 @@ export class SacarTurnoComponent implements OnInit {
         this.paciente = { email: '', password: '' };
       }
     });
-  }
-
-  public SeleccionarTurno(event) {
-    this.turnoSeleccionado = event;
-    console.log(this.turnoSeleccionado);
-
-    /**
- *     this.turnoSeleccionado = event;
-    this.turnoSeleccionado.especialidad = event.especialidadSeleccionadaNombre;
-    this.turnoSeleccionado.especialista = event.especialistaSeleccionado;
-    this.turnoSeleccionado.paciente = event.paciente;
- */
   }
 
   ngOnInit(): void {

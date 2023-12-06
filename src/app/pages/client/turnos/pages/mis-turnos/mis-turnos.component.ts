@@ -16,7 +16,7 @@ export class MisTurnosComponent implements OnInit {
 ngOnInit(): void {
   this.turnosSv.getItems().subscribe( res => {
     this.turnos = res;
+    console.log(res);
   });
 }
-
 }

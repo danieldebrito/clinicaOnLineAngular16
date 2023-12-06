@@ -8,8 +8,6 @@ export class Turno {
         public id?: string,
         public fecha?: Date,
         public dia?: string,
-        public hora?: Number,
-        public diahora?: string,
         public especialista?: Especialista,
         public paciente?: Paciente,
         public especialidad?: Especialidad,

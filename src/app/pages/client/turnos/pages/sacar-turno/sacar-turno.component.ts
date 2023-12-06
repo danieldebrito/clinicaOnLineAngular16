@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Jornada } from 'src/app/class/jornada';
 import { UsuariosService } from 'src/app/auth/services/usuarios.service';
 import { Especialista } from 'src/app/class/usuarios/especialista';
-import { EspecialidadesService } from 'src/app/services/especialidades.service';
 import { EEstadoTurno, Turno } from 'src/app/class/turno';
 import { JornadasService } from 'src/app/services/jornadas.service';
-import { Usuario } from 'src/app/auth/class/usuario';
+import { ERole, Usuario } from 'src/app/auth/class/usuario';
 import { turnosService } from 'src/app/services/turnos.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Paciente } from 'src/app/class/usuarios/paciente';
@@ -69,7 +68,7 @@ export class SacarTurnoComponent implements OnInit {
   // ESPECIALISTAS ///////////////////////////////////////////////////////////////////////////
   public getEspecialistas() {
     this.usuariosSv.getItems().subscribe((res) => {
-      this.especialistas = res;
+      this.especialistas = res.filter( e => e.role == ERole.especialista );
     });
   }
 
@@ -111,13 +110,15 @@ export class SacarTurnoComponent implements OnInit {
         e.fecha.getMonth() === event.turnoSelect.fecha.getMonth() &&
         e.fecha.getFullYear() === event.turnoSelect.fecha.getFullYear()
     );
+  }
 
-    console.table(this.turnosHorariosDia);
+  public SeleccionarTurno(event) {
+    this.turnoSeleccionado = event;
   }
 
   public tomarTurno(turno: any) {
     turno.estado = EEstadoTurno.ocupado;
-    this.turnosSv.addItem(turno.turnos.turnos);
+    this.turnosSv.addItem(turno);
   }
 
   // USUARIOS //////////////////////////////////////////////////////////////////////////////////
@@ -133,18 +134,7 @@ export class SacarTurnoComponent implements OnInit {
     });
   }
 
-  public SeleccionarTurno(event) {
 
-    this.turnoSeleccionado = event;
-    console.log(this.turnoSeleccionado);
-
-/**
- *     this.turnoSeleccionado = event;
-    this.turnoSeleccionado.especialidad = event.especialidadSeleccionadaNombre;
-    this.turnoSeleccionado.especialista = event.especialistaSeleccionado;
-    this.turnoSeleccionado.paciente = event.paciente;
- */
-  }
 
   ngOnInit(): void {
     this.getEspecialistas();

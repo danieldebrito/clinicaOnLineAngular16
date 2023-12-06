@@ -10,6 +10,8 @@ import { TurnosGeneradorDiasComponent } from './turnos-generador-dias/turnos-gen
 import { TurnoCardDiaComponent } from './turno-card-dia/turno-card-dia.component';
 import { TurnosListadoComponent } from './turnos-listado/turnos-listado.component';
 import { TurnoCardHorarioComponent } from './turno-card-dia-horario/turno-card-dia-horario.component';
+import { TurnoCardComponent } from './turno-card/turno-card.component';
+import { TurnoCardDetalleComponent } from './turno-card-detalle/turno-card-detalle.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { TurnoCardHorarioComponent } from './turno-card-dia-horario/turno-card-d
     TurnosGeneradorDiasComponent,
     TurnoCardDiaComponent,
     TurnosListadoComponent,
-    TurnoCardHorarioComponent
+    TurnoCardHorarioComponent,
+    TurnoCardComponent,
+    TurnoCardDetalleComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,10 @@ import { TurnoCardHorarioComponent } from './turno-card-dia-horario/turno-card-d
     TurnosGridComponent,
     TurnoDetalleComponent,
     TurnosGeneradorDiasComponent,
-    TurnosListadoComponent
+    TurnoCardDiaComponent,
+    TurnosListadoComponent,
+    TurnoCardHorarioComponent,
+    TurnoCardComponent
   ]
 })
 export class TurnosComponentsModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GitService  } from 'src/app/services/gitHTTP.service';
+import { GitService  } from 'src/app/services/sample/gitHTTP.service';
 
 @Component({
   selector: 'app-about',

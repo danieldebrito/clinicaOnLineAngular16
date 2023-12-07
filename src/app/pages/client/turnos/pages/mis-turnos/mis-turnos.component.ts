@@ -13,6 +13,10 @@ export class MisTurnosComponent implements OnInit {
 
   constructor( private turnosSv: turnosService ){}
 
+  public buscador(palabraClave: string){
+    console.log(palabraClave);
+  }
+
 ngOnInit(): void {
   this.turnosSv.getItems().subscribe( res => {
     this.turnos = res;

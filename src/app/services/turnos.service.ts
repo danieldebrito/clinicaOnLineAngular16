@@ -1,13 +1,25 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, deleteDoc, doc, docData, Firestore, orderBy, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import {
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  docData,
+  Firestore,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from '@angular/fire/firestore';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Turno } from 'src/app/class/turno';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class turnosService {
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore) {}
 
   public addItem(item: Turno) {
     const col = collection(this.firestore, 'turnos');
@@ -21,10 +33,10 @@ export class turnosService {
     const col = collection(this.firestore, 'turnos');
     const queryObservable = query(col, orderBy('fecha')); // ordenar por nombre
     const observable = collectionData(queryObservable).pipe(
-      map(res => {
+      map((res) => {
         return res as Turno[];
       }),
-      catchError(err => {
+      catchError((err) => {
         console.error('Error obteniendo datos:', err);
         return throwError(() => err);
       })
@@ -37,10 +49,10 @@ export class turnosService {
     const documento = doc(col, id);
 
     const observable = docData(documento).pipe(
-      map(res => {
+      map((res) => {
         return res as Turno;
       }),
-      catchError(err => {
+      catchError((err) => {
         console.error('Error obteniendo el documento:', err);
         return throwError(() => err);
       })
@@ -61,6 +73,15 @@ export class turnosService {
 
     deleteDoc(documento);
   }
+
+  ///////////////////////////////////////////////////////////////////////////////////
+
+  public searhTurnosByEspecialistaEspecialidad( palabraClave: string ) {
+    const colRef = collection(this.firestore, 'turnos');
+
+    // Create a query against the collection.
+    const q = query(colRef, where('especialista.nombre', '==', palabraClave));
+
+    return q;
+  }
 }
-
-

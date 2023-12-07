@@ -32,6 +32,16 @@ export class SignInComponent {
     this.authService.SignIn(user);
   }
 
+  public loguear(item){
+
+    let user: Usuario = {
+      email: item.email,
+      password: item.password
+    }
+
+    this.authService.SignIn(user);
+
+  }
 
   public AutoSignIn(){  /// login de prueba
     //this.loginForm.setValue( { email: 'danieldebrito@outlook.com', password: '123456' });

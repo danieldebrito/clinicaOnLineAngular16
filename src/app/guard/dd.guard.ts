@@ -11,9 +11,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthGuard {
-
   constructor(public authService: AuthService, public router: Router) { }
-
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -23,5 +21,4 @@ export class AuthGuard {
     }
     return true;
   }
-  
 }

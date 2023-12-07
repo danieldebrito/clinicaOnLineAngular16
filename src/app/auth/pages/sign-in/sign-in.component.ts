@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from "src/app/auth/services/auth.service";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Usuario } from '../../class/usuario';
+import { ERole, Usuario } from '../../class/usuario';
+import { UsuariosService } from '../../services/usuarios.service';
 
 
 @Component({
@@ -11,13 +12,16 @@ import { Usuario } from '../../class/usuario';
 })
 export class SignInComponent {
 
+  public usuariosAccesoRapido: Usuario[] = [];
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    public usuariosSv: UsuariosService
   ) { }
 
   public login(email: string, password: string){
@@ -25,10 +29,7 @@ export class SignInComponent {
       email: email,
       password: password
     }
-
     this.authService.SignIn(user);
-
-    this.authService.SignIn
   }
 
 
@@ -53,6 +54,22 @@ export class SignInComponent {
     this.authService.SignIn(user);
   }
 
-  ngOnInit() { }
+  public accesosRapidos(){
+    this.usuariosSv.getItems().subscribe( usuarios => {
+
+      const pacientes: Usuario[] = usuarios.filter(usuario => usuario.role === ERole.paciente).slice(0, 3);
+      const especialistas: Usuario[] = usuarios.filter(usuario => usuario.role === ERole.especialista).slice(0, 2);
+      const admin: Usuario[] = usuarios.filter(usuario => usuario.role === ERole.administrador).slice(0, 1);
+
+      this.usuariosAccesoRapido = pacientes.concat(especialistas.concat(admin));
+      
+      //console.log(this.usuariosAccesoRapido);
+
+    } );
+  }
+
+  ngOnInit() { 
+    this.accesosRapidos();
+  }
 }
 

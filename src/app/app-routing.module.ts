@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AuthGuard } from 'src/app/auth/guard/auth.guard';
+
+import { PacienteGuard } from './guard/paciente.guard';
+import { AdminGuard } from './guard/admin.guard';
+import { EspecialistaGuard } from './guard/espacialista.guard';
 
 
 const routes: Routes = [
@@ -19,13 +24,12 @@ const routes: Routes = [
   { path: 'about', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule) },
   { path: 'denegado', loadChildren: () => import('./pages/denegado/denegado.module').then(m => m.DenegadoModule) },
   // client ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  { path: 'sacarturno', loadChildren: () => import('./pages/client/turnos/pages/sacar-turno/sacar-turno.module').then(m => m.SacarTurnoModule), /*canActivate: [PacienteGuard]*/ },
-  { path: 'misturnos', loadChildren: () => import('./pages/client/turnos/pages/mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule) },
-  { path: 'usuarios', loadChildren: () => import('./pages/client/admin/usuarios/usuarios.module').then(m => m.UsuariosModule) },
-  { path: 'administrador', loadChildren: () => import('./pages/client/admin/administrador/administrador.module').then(m => m.AdministradorModule) },
-  { path: 'especialidades', loadChildren: () => import('./pages/client/especialidades/especialidades.module').then(m => m.EspecialidadesModule) },
-  { path: 'jornadas', loadChildren: () => import('./pages/client/especialistas/jornada/jornada.module').then(m => m.JornadaModule) },
-  { path: 'usuarios', loadChildren: () => import('./pages/client/usuarios/usuarios.module').then(m => m.UsuariosModule) },
+  { path: 'sacarturno', loadChildren: () => import('./pages/client/turnos/pages/sacar-turno/sacar-turno.module').then(m => m.SacarTurnoModule), canActivate: [PacienteGuard, AdminGuard] },
+  { path: 'misturnos', loadChildren: () => import('./pages/client/turnos/pages/mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule), 
+  canActivate: [PacienteGuard, AdminGuard, EspecialistaGuard] },
+  { path: 'administrador', loadChildren: () => import('./pages/client/admin/administrador/administrador.module').then(m => m.AdministradorModule), canActivate: [AdminGuard] },
+  { path: 'especialidades', loadChildren: () => import('./pages/client/especialidades/especialidades.module').then(m => m.EspecialidadesModule), canActivate: [AdminGuard] },
+  { path: 'jornadas', loadChildren: () => import('./pages/client/especialistas/jornada/jornada.module').then(m => m.JornadaModule), canActivate: [EspecialistaGuard] },
 ];
 
 @NgModule({

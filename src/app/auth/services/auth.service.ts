@@ -1,12 +1,16 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from 'src/app/auth/models/user';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { UserLog } from 'src/app/auth/class/userLog';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { LogUserService } from './log-user.service';
+import { ERole } from '../class/usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -43,11 +47,10 @@ export class AuthService {
         this.SetUserData(result.user, usuario);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-
             let log: UserLog = {
               uid: user.uid,
               fechaIngreso: new Date(),
-            }
+            };
 
             this.logService.addItem(log);
             this.router.navigate(['home']);
@@ -63,14 +66,11 @@ export class AuthService {
     return this.afAuth
       .createUserWithEmailAndPassword(usuario.email, usuario.password)
       .then((result) => {
-
-
         let user: User = result.user;
 
         console.log(user);
         this.SetUserData(result.user, usuario);
         //this.usuariosService.addItem(usuario);
-
 
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
@@ -97,7 +97,7 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
     userFormulario.emailVerified = userFirebase.emailVerified;
 
     console.log(userFirebase.emailVerified);
-    
+
     return userRef.set(userFormulario, {
       merge: true,
     });
@@ -140,7 +140,6 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
     });
   }
 
-
   /////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////
 
@@ -148,7 +147,7 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
     const documento = this.afsA.doc<User>(`users/${id}`);
 
     const observable = documento.valueChanges().pipe(
-      catchError(err => {
+      catchError((err) => {
         console.error('Error obteniendo el documento:', err);
         return throwError(() => err);
       })
@@ -156,5 +155,73 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
 
     return observable;
   }
-}
 
+  // Método para verificar si el usuario actual es un paciente
+  isPaciente(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      switchMap((user) => {
+        if (user) {
+          // Obtener el documento del usuario desde la colección 'usuarios'
+          return this.afsA.doc(`usuarios/${user.uid}`).valueChanges();
+        }
+        return [];
+      }),
+      map((usuario: any) => {
+        if (usuario) {
+          return usuario.emailVerified && usuario.role === ERole.paciente;
+        }
+        return false;
+      }),
+      catchError((error) => {
+        console.error('Error al verificar si es paciente:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // Método para verificar si el usuario actual es un admin
+  isAdmin(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      switchMap((user) => {
+        if (user) {
+          // Obtener el documento del usuario desde la colección 'usuarios'
+          return this.afsA.doc(`usuarios/${user.uid}`).valueChanges();
+        }
+        return [];
+      }),
+      map((usuario: any) => {
+        if (usuario) {
+          return usuario.emailVerified && usuario.role === ERole.administrador;
+        }
+        return false;
+      }),
+      catchError((error) => {
+        console.error('Error al verificar si es admin:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // Método para verificar si el usuario actual es un admin
+  isEspecialista(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      switchMap((user) => {
+        if (user) {
+          // Obtener el documento del usuario desde la colección 'usuarios'
+          return this.afsA.doc(`usuarios/${user.uid}`).valueChanges();
+        }
+        return [];
+      }),
+      map((usuario: any) => {
+        if (usuario) {
+          return usuario.emailVerified && usuario.role === ERole.especialista;
+        }
+        return false;
+      }),
+      catchError((error) => {
+        console.error('Error al verificar si es admin:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+}

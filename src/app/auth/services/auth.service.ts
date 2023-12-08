@@ -168,7 +168,7 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
       }),
       map((usuario: any) => {
         if (usuario) {
-          return usuario.emailVerified && usuario.role === ERole.paciente;
+          return usuario.emailVerified && (usuario.role === ERole.paciente  || usuario.role === ERole.administrador);
         }
         return false;
       }),
@@ -214,7 +214,7 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
       }),
       map((usuario: any) => {
         if (usuario) {
-          return usuario.emailVerified && usuario.role === ERole.especialista;
+          return usuario.emailVerified && (usuario.role === ERole.especialista  || usuario.role === ERole.administrador);
         }
         return false;
       }),

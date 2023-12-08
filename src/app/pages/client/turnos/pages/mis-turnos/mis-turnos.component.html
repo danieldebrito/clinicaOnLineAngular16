@@ -4,7 +4,10 @@
 
         </div>
         <div class="col-sm-9">
-            <app-turnos-grid [turnos]="turnos"></app-turnos-grid>
+            <app-turnos-grid [turnos]="turnos" (thowTurno)="turnoUpdate($event)"></app-turnos-grid>
+        </div>
+        <div>
+
         </div>
     </div>
 </div>

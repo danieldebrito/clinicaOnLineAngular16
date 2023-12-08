@@ -124,7 +124,7 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   public tomarTurno(turno: any) {
-    turno.estado = EEstadoTurno.ocupado;
+    turno.estado = EEstadoTurno.pendiente;
     this.turnosSv.addItem(turno);
 
     this.turnoSeleccionado = {};

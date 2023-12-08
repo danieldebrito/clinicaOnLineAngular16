@@ -12,6 +12,7 @@ import { TurnosListadoComponent } from './turnos-listado/turnos-listado.componen
 import { TurnoCardHorarioComponent } from './turno-card-dia-horario/turno-card-dia-horario.component';
 import { TurnoCardComponent } from './turno-card/turno-card.component';
 import { TurnoCardDetalleComponent } from './turno-card-detalle/turno-card-detalle.component';
+import { TurnosGrisHorariosComponent } from './turnos-gris-horarios/turnos-gris-horarios.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TurnoCardDetalleComponent } from './turno-card-detalle/turno-card-detal
     TurnosListadoComponent,
     TurnoCardHorarioComponent,
     TurnoCardComponent,
-    TurnoCardDetalleComponent
+    TurnoCardDetalleComponent,
+    TurnosGrisHorariosComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { TurnoCardDetalleComponent } from './turno-card-detalle/turno-card-detal
     TurnosListadoComponent,
     TurnoCardHorarioComponent,
     TurnoCardComponent,
-    TurnoCardDetalleComponent
+    TurnoCardDetalleComponent,
+    TurnosGrisHorariosComponent
   ]
 })
 export class TurnosComponentsModule { }

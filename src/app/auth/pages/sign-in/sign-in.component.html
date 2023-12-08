@@ -20,16 +20,17 @@
                     <div class="formGroup">
                         <input type="text" class="formControl" placeholder="Username" #userName required />
                     </div>
-                    <div class="formGroup">
+                    <div class="formGroup mt-2">
                         <input type="password" class="formControl" placeholder="Password" #userPassword required />
                     </div>
                     <!-- Calling SignIn Api from AuthService -->
-                    <div class="formGroup">
-                        <input type="button" class="btn btnPrimary" value="Log in"
+                    <div class="formGroup mt-3">
+                        <input type="button" class="btn btn-lg btn-info" value="Ingresar"
                             (click)="login(userName.value, userPassword.value)" />
                     </div>
 
-                    <div class="formGroup mt-2">
+                    <!--
+                        <div class="formGroup mt-2">
                         <button class="w-100 btn btn-lg btn-info" (click)="AutoSignIn()" type="submit">
                             Acceso Rápido Admin
                         </button>
@@ -39,6 +40,7 @@
                             Acceso Rápido Empleado
                         </button>
                     </div>
+-->
 
                     <!-- Calling GoogleAuth Api from AuthService -->
 

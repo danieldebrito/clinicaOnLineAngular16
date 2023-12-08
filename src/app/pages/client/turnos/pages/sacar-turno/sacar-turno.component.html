@@ -55,8 +55,9 @@
             <form [formGroup]="secondFormGroup">
                 <ng-template matStepLabel>Seleccionar Hora</ng-template>
 
-                <app-turnos-listado [turnos]="turnosHorariosDia" (throwTurnoSeleccionado)="SeleccionarTurno($event)"
-                    (click)="goForward(stepper)"></app-turnos-listado>
+                <app-turnos-gris-horarios [turnos]="turnosHorariosDia"
+                    (throwTurnoSeleccionado)="SeleccionarTurno($event)"
+                    (click)="goForward(stepper)"></app-turnos-gris-horarios>
 
                 <div>
                     <button type="button" class="btn btn-success p-1 m-2" mat-button matStepperPrevious><i

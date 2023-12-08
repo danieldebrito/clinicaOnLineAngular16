@@ -17,6 +17,13 @@ export class MisTurnosComponent implements OnInit {
     console.log(palabraClave);
   }
 
+  public turnoUpdate(turno: Turno){
+
+    console.log(turno);
+
+    this.turnosSv.update(turno.id, turno);
+  }
+
 ngOnInit(): void {
   this.turnosSv.getItems().subscribe( res => {
     this.turnos = res;

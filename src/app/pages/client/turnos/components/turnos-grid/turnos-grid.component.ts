@@ -10,6 +10,7 @@ export class TurnosGridComponent {
 
   @Input() turnos: Turno[] = [];
   @Output() thowTurno = new EventEmitter();
+  
   public filtroEspecialidad: string = '';
 
   public aplicarFiltro(): void {

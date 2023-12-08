@@ -86,7 +86,7 @@ export class SignUpEspecialistaComponent implements OnInit {
         edad: this.createForm.value.edad ?? '',
         fechaNacimiento: this.createForm.value.fechaNacimiento ?? '',
         role: this.role,
-        habilitado: true,
+        habilitado: false,
       };
 
       this.authService.SignUp(newEspecialista);

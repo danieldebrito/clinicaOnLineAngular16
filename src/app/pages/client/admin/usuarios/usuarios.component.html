@@ -11,13 +11,14 @@
                     <th><span>Nacimiento</span></th>
                     <th class="text-center"><span>Email</span></th>
                     <th><span>Email Vericado ?</span></th>
+                    <th><span>Estado</span></th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody *ngFor="let item of usuarios">
                 <tr>
                     <td>
-                        <div class="fs-5">
+                        <div class="fs-6">
                             <span class="label label-default">
                                 {{ item.nombre }} {{ item.apellido }} </span>
                         </div>
@@ -25,18 +26,18 @@
 
 
                     <td>
-                        <div class="fs-5">
+                        <div class="fs-6">
                             <span class="label label-default">
                                 {{ item.role | titlecase }} </span>
                         </div>
                     </td>
                     <td>
-                        <div class="fs-5"><span class="label label-default">
+                        <div class="fs-6"><span class="label label-default">
                                 {{ item.fechaNacimiento }}</span>
                         </div>
                     </td>
                     <td>
-                        <div class="fs-5">
+                        <div class="fs-6">
                             <span class="label label-default">
                                 {{ item.email }} </span>
                         </div>
@@ -47,6 +48,14 @@
                         </div>
                         <div *ngIf="!item.emailVerified">
                             <span class="badge bg-danger">Sin Verificar</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="item.habilitado">
+                            <span class="badge bg-success">Habilitado</span>
+                        </div>
+                        <div *ngIf="!item.habilitado">
+                            <span class="badge bg-danger">Deshabilitado</span>
                         </div>
                     </td>
                     <td style="width: 20%;">

@@ -31,6 +31,8 @@ const routes: Routes = [
   { path: 'especialidades', loadChildren: () => import('./pages/client/especialidades/especialidades.module').then(m => m.EspecialidadesModule), canActivate: [AdminGuard] },
   { path: 'jornadas', loadChildren: () => import('./pages/client/especialistas/pages/jornada/jornada.module').then(m => m.JornadaModule), canActivate: [EspecialistaGuard] },
   { path: 'atenderturno', loadChildren: () => import('./pages/client/especialistas/pages/atender-turno/atender-turno.module').then(m => m.AtenderTurnoModule) },
+  { path: 'historiaclinica', loadChildren: () => import('./pages/client/pacientes/pages/historia-clinica/historia-clinica.module').then(m => m.HistoriaClinicaModule) },
+  { path: 'mispacientes', loadChildren: () => import('./pages/client/especialistas/pages/mis-pacientes/mis-pacientes.module').then(m => m.MisPacientesModule) },
 ];
 
 @NgModule({

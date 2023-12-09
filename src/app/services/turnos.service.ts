@@ -14,6 +14,8 @@ import {
 } from '@angular/fire/firestore';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Turno } from 'src/app/class/turno';
+import { Especialista } from '../class/usuarios/especialista';
+import { Especialidad } from '../class/especialidad';
 
 @Injectable({
   providedIn: 'root',
@@ -79,12 +81,16 @@ export class turnosService {
 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  public searhTurnosByEspecialistaEspecialidad( palabraClave: string ) {
+  public getTurnosByEspecialistaAndEspecialidad(especialista: Especialista, especialidad: Especialidad) {
     const colRef = collection(this.firestore, 'turnos');
-
+  
     // Create a query against the collection.
-    const q = query(colRef, where('especialista.nombre', '==', palabraClave));
-
+    const q = query(
+      colRef,
+      where('especialista.uid', '==', especialista.uid),
+      where('especialidad.id', '==', especialidad.id)
+    );
+  
     return q;
   }
 }

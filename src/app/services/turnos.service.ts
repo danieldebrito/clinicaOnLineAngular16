@@ -19,6 +19,9 @@ import { Turno } from 'src/app/class/turno';
   providedIn: 'root',
 })
 export class turnosService {
+
+  public turnoAtender: Turno = {};
+
   constructor(private firestore: Firestore) {}
 
   public addItem(item: Turno) {

@@ -144,8 +144,8 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getEspecialistas();
     this.getCurrentUser();
+    this.getEspecialistas();
     this.getJornadas();
   }
 }

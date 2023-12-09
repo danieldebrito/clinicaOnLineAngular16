@@ -26,10 +26,11 @@ const routes: Routes = [
   // client ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   { path: 'sacarturno', loadChildren: () => import('./pages/client/turnos/pages/sacar-turno/sacar-turno.module').then(m => m.SacarTurnoModule), canActivate: [PacienteGuard] },
   { path: 'misturnos', loadChildren: () => import('./pages/client/turnos/pages/mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule), 
-  canActivate: [PacienteGuard, EspecialistaGuard] },
+  canActivate: [AuthGuard] },
   { path: 'administrador', loadChildren: () => import('./pages/client/admin/administrador/administrador.module').then(m => m.AdministradorModule), canActivate: [AdminGuard] },
   { path: 'especialidades', loadChildren: () => import('./pages/client/especialidades/especialidades.module').then(m => m.EspecialidadesModule), canActivate: [AdminGuard] },
-  { path: 'jornadas', loadChildren: () => import('./pages/client/especialistas/jornada/jornada.module').then(m => m.JornadaModule), canActivate: [EspecialistaGuard] },
+  { path: 'jornadas', loadChildren: () => import('./pages/client/especialistas/pages/jornada/jornada.module').then(m => m.JornadaModule), canActivate: [EspecialistaGuard] },
+  { path: 'atenderturno', loadChildren: () => import('./pages/client/especialistas/pages/atender-turno/atender-turno.module').then(m => m.AtenderTurnoModule) },
 ];
 
 @NgModule({

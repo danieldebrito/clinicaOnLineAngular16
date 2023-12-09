@@ -1,0 +1,31 @@
+<div class="container">
+    <div *ngIf="turno">
+        <p class="fs-2">Atención de Turno</p>
+        <p><strong>Especialista:</strong></p>
+
+        <div class="row" *ngIf="turno">
+            <div class="col-sm-6 mt-3">
+                <app-especialista-card [especialista]="turno?.especialista"></app-especialista-card>
+            </div>
+            <div class="col-sm-6 mt-3">
+                <app-especialidades-card [especialidad]="turno?.especialidad"></app-especialidades-card>
+            </div>
+        </div>
+
+        <hr>
+
+        <p>
+            <strong>Paciente:</strong> {{ turno.paciente?.nombre }} {{ turno.paciente?.apellido }}
+            <strong>Turno Fecha:</strong> {{ getFormattedDate() | date:'yyyy-MM-dd HH:mm:ss' }}
+        </p>
+
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label"></label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="turno.resena"
+                placeholder="Ingrese reseña o comentario"></textarea>
+        </div>
+
+        <button type="button" class="btn btn-success" (click)="atenderTurno()">Finalizar Turno</button>
+
+    </div>
+</div>

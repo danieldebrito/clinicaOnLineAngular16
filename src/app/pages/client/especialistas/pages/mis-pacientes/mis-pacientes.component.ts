@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UsuariosService } from 'src/app/auth/services/usuarios.service';
-import { Especialidad } from 'src/app/class/especialidad';
 import { Turno } from 'src/app/class/turno';
 import { Especialista } from 'src/app/class/usuarios/especialista';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 import { turnosService } from 'src/app/services/turnos.service';
+
+export class PacienteTurnos {
+  constructor(
+      public paciente?: Paciente,
+      public turnos?: Turno[],
+  ) { }
+}
 
 @Component({
   selector: 'app-mis-pacientes',
@@ -14,8 +20,14 @@ import { turnosService } from 'src/app/services/turnos.service';
 })
 export class MisPacientesComponent implements OnInit {
 
+  public mysPacientes: Paciente[] = [];
+  public mysPacienteTurnos: PacienteTurnos[] = [];
+
   public pacientes: Paciente[] = [];
+
   public turnos: Turno[] = [];
+  public mysTurnos: Turno[] = [];
+
   public currentEspecialista: Especialista = { email: '', password: '' };
 
   constructor(
@@ -36,13 +48,45 @@ export class MisPacientesComponent implements OnInit {
         this.usuariosSv.getItemById(user.uid).subscribe((especialista) => {
           this.turnosSv.getItems().subscribe( turnos => {
             this.turnos = turnos;
-            this.pacientes = this.turnos.filter( t => t.especialista.uid === especialista.uid ).map( tn => tn.paciente );
+            this.mysTurnos = this.turnos.filter( t => t.especialista.uid === especialista.uid ).map( tn => tn );
+            this.pacienteTurnos(this.turnos.filter( t => t.especialista.uid === especialista.uid ).map( tn => tn.paciente ));
           });
         });
       }
     });
   }
 
+  public pacienteTurnos(pacientes: Paciente[]) {
+    this.mysPacienteTurnos = [];
+  
+    const pacientesUnicos = Array.from(new Set(pacientes.map(p => p.uid)));
+  
+    pacientesUnicos.forEach(uid => {
+      const paciente = pacientes.find(p => p.uid === uid);
+      if (paciente) {
+        let pacienteTurno: PacienteTurnos = {
+          paciente: paciente,
+          turnos: this.mysTurnos
+            .filter(tn => tn.paciente.uid === paciente.uid)
+            .sort((a, b) => (b.fecha as any).seconds - (a.fecha as any).seconds) // Access timestamp directly
+            .slice(0, 3), // Select the first three
+        };
+  
+        this.mysPacienteTurnos.push(pacienteTurno);
+      }
+    });
+    }
+
+
+  getFormattedDate(turno: any): string {
+    if (turno && turno.fecha && turno.fecha.toDate) {
+      const date = turno.fecha.toDate();
+      return date.toISOString();
+    }
+    return '';
+  }
+  
+  
   // USUARIOS //////////////////////////////////////////////////////////////////////////////////
   private getCurrentUser() {
     this.afAuth.authState.subscribe((user) => {

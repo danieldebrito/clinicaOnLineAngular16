@@ -14,7 +14,6 @@ export class Turno {
         public estado?: EEstadoTurno,
         public motivoRechazo?: string,
         public encuesta?: Encuesta,
-        public resena?: string
     ) { }
 }
 

@@ -5,29 +5,33 @@
             Fecha: {{ getFormattedDate() | date:'yyyy-MM-dd HH:mm:ss' }}
             <span [class]="getBadgeClass()"> {{turno.estado}} </span>
         </li>
-        <li class="list-group-item">Especialista: {{ turno.especialista?.nombre }} {{ turno.especialista?.apellido }}</li>
-        <li class="list-group-item">Paciente: {{ turno.paciente?.nombre }} {{ turno.paciente?.apellido }}</li>
-        <li class="list-group-item">
-            <div *ngIf="turno.estado === 'pendiente'">
-                <button type="button" class="btn btn-danger btn-sm" (click)="alertConfirmation()">Cancelar</button>
-            </div>
-            <div *ngIf="turno.estado === 'aceptado'">
-                <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
-            </div>
-            <div *ngIf="turno.estado === 'cumplido'">
-                <button type="button" class="btn btn-primary btn-sm">Calificar</button>
-                <button type="button" class="btn btn-primary btn-sm">Encuesta</button>
-            </div>
-            <div *ngIf="turno?.especialista.role === 'especialista'">
-                <button type="button" class="btn btn-primary btn-sm" (click)="atenderTurno(turno)" >Atender</button>
-            </div>
-            <div *ngIf="turno.estado === 'cancelado'">
-               
-            </div>
-            <div *ngIf="turno.estado === 'disponible'">
-                
-            </div>
-            <!-- Agrega más condiciones según los estados necesarios -->
+        <li class="list-group-item">Especialista: {{ turno.especialista?.nombre }} {{ turno.especialista?.apellido }}
         </li>
+        <li class="list-group-item">Paciente: {{ turno.paciente?.nombre }} {{ turno.paciente?.apellido }}</li>
+
+        <!-- //////////////////////////   BOTONERA ESPECIALISTA ////////////////////////////////// -->
+        <li class="list-group-item">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <div *ngIf="turno.estado === 'pendiente'">
+                    <button type="button" class="btn btn-danger btn-sm mr-2"
+                        (click)="alertaConfirmacion()">Cancelar</button>
+                    <button type="button" class="btn btn-success btn-sm mr-2"
+                        (click)="cambiarEstadoTurno('aceptado')">Aceptar</button>
+                </div>
+
+                <div *ngIf="turno.estado === 'aceptado'">
+                    <button type="button" class="btn btn-danger btn-sm mr-2"
+                        (click)="alertaConfirmacion()">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn-sm mr-2"
+                        (click)="atenderTurno(turno)">Atender</button>
+                </div>
+
+                <div *ngIf="turno.estado === 'cumplido'">
+                    <button type="button" class="btn btn-primary btn-sm">Ver Historia Clinica</button>
+                </div>
+            </div>
+        </li>
+
+
     </ul>
 </div>

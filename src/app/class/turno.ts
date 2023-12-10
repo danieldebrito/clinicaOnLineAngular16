@@ -21,7 +21,6 @@ export class Turno {
 
 export enum EEstadoTurno {
     aceptado = 'aceptado',
-    rechazado = 'rechazado',
     cumplido = 'cumplido',
     cancelado = 'cancelado',
     pendiente = 'pendiente',

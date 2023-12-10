@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AtencionPaciente } from 'src/app/class/atencionPaciente';
+import { EEstadoTurno } from 'src/app/class/turno';
 import { turnosService } from 'src/app/services/turnos.service';
 
 @Component({
@@ -40,8 +41,6 @@ export class AtenderTurnoComponent implements OnInit {
     return this.createForm.get('dinamicos') as FormArray;
   }
 
-
-
   public createAtencion() {
     if (this.createForm.valid) {
       const newItem: AtencionPaciente = {
@@ -57,12 +56,10 @@ export class AtenderTurnoComponent implements OnInit {
       };
 
       this.turno.atencionPaciente = newItem;
+      this.turno.estado = EEstadoTurno.cumplido;
   
       this.turnosSv.update(this.turno.id, this.turno);
   
-      console.table(newItem);
-      console.table(this.turno);
-
     } else {
       console.log("El formulario no es válido, realiza alguna acción o muestra un mensaje de error.");
     }

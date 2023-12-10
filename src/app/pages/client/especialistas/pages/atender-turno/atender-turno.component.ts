@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AtencionPaciente } from 'src/app/class/atencionPaciente';
 import { turnosService } from 'src/app/services/turnos.service';
 
@@ -20,9 +20,27 @@ export class AtenderTurnoComponent implements OnInit {
     temperatura: new FormControl('', [Validators.required, Validators.min(1), Validators.max(999)]),
     presion: new FormControl('', [Validators.required, Validators.min(1), Validators.max(999)]),
     resena: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+    'dinamicos': new FormArray([])
   });
 
   constructor(private turnosSv: turnosService) { }
+
+  addDinamico() {
+    (this.createForm.get('dinamicos') as FormArray).push(new FormGroup({
+      'dinamicoKey': new FormControl('', Validators.required),
+      'dinamicoValue': new FormControl('', Validators.required),
+    }));
+  }
+  
+  deleteDinamico(index: number) {
+    (this.createForm.get('dinamicos') as FormArray).removeAt(index);
+  }
+  
+  get dinamicosFormArray() {
+    return this.createForm.get('dinamicos') as FormArray;
+  }
+
+
 
   public createAtencion() {
     if (this.createForm.valid) {
@@ -31,13 +49,20 @@ export class AtenderTurnoComponent implements OnInit {
         peso: Number(this.createForm.value.peso),
         temperatura: Number(this.createForm.value.temperatura),
         presion: Number(this.createForm.value.presion),
-        resena: this.createForm.value.resena
+        resena: this.createForm.value.resena,
+        dinamicos: this.createForm.value.dinamicos.map((item: any) => ({
+          dinamicoKey: item.dinamicoKey,
+          dinamicoValue: item.dinamicoValue
+        }))
       };
 
-      // Assuming you have a method in turnosService to add the atencion
-      //this.turnosSv.addAtencion(newItem);
+      this.turno.atencionPaciente = newItem;
+  
+      this.turnosSv.update(this.turno.id, this.turno);
+  
+      console.table(newItem);
+      console.table(this.turno);
 
-      console.log(newItem);
     } else {
       console.log("El formulario no es válido, realiza alguna acción o muestra un mensaje de error.");
     }

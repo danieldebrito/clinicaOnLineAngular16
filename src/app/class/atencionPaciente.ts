@@ -5,6 +5,7 @@ export class AtencionPaciente {
         public peso?: number,
         public temperatura?: number,
         public presion?: number,
-        public resena?: string
+        public resena?: string,
+        public dinamicos?: any
     ) { }
 }

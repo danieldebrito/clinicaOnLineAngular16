@@ -24,15 +24,15 @@ const routes: Routes = [
   { path: 'about', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule) },
   { path: 'denegado', loadChildren: () => import('./pages/denegado/denegado.module').then(m => m.DenegadoModule) },
   // client ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  { path: 'sacarturno', loadChildren: () => import('./pages/client/turnos/pages/sacar-turno/sacar-turno.module').then(m => m.SacarTurnoModule), canActivate: [PacienteGuard] },
-  { path: 'misturnos', loadChildren: () => import('./pages/client/turnos/pages/mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule), 
+  { path: 'sacarturno', loadChildren: () => import('./client/turnos/pages/sacar-turno/sacar-turno.module').then(m => m.SacarTurnoModule), canActivate: [PacienteGuard] },
+  { path: 'misturnos', loadChildren: () => import('./client/turnos/pages/mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule), 
   canActivate: [AuthGuard] },
-  { path: 'administrador', loadChildren: () => import('./pages/client/admin/administrador/administrador.module').then(m => m.AdministradorModule), canActivate: [AdminGuard] },
-  { path: 'especialidades', loadChildren: () => import('./pages/client/especialidades/especialidades.module').then(m => m.EspecialidadesModule), canActivate: [AdminGuard] },
-  { path: 'jornadas', loadChildren: () => import('./pages/client/especialistas/pages/jornada/jornada.module').then(m => m.JornadaModule), canActivate: [EspecialistaGuard] },
-  { path: 'atenderturno', loadChildren: () => import('./pages/client/especialistas/pages/atender-turno/atender-turno.module').then(m => m.AtenderTurnoModule) },
-  { path: 'historiaclinica', loadChildren: () => import('./pages/client/pacientes/pages/historia-clinica/historia-clinica.module').then(m => m.HistoriaClinicaModule) },
-  { path: 'mispacientes', loadChildren: () => import('./pages/client/especialistas/pages/mis-pacientes/mis-pacientes.module').then(m => m.MisPacientesModule) },
+  { path: 'administrador', loadChildren: () => import('./client/admin/administrador/administrador.module').then(m => m.AdministradorModule), canActivate: [AdminGuard] },
+  { path: 'especialidades', loadChildren: () => import('./client/especialidades/especialidades.module').then(m => m.EspecialidadesModule), canActivate: [AdminGuard] },
+  { path: 'jornadas', loadChildren: () => import('./client/especialistas/pages/jornada/jornada.module').then(m => m.JornadaModule), canActivate: [EspecialistaGuard] },
+  { path: 'atenderturno', loadChildren: () => import('./client/especialistas/pages/atender-turno/atender-turno.module').then(m => m.AtenderTurnoModule) },
+  { path: 'historiaclinica', loadChildren: () => import('./client/pacientes/pages/historia-clinica/historia-clinica.module').then(m => m.HistoriaClinicaModule) },
+  { path: 'mispacientes', loadChildren: () => import('./client/especialistas/pages/mis-pacientes/mis-pacientes.module').then(m => m.MisPacientesModule) },
 ];
 
 @NgModule({

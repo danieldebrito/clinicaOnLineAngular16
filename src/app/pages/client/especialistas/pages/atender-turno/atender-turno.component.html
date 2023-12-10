@@ -1,23 +1,28 @@
 <div class="container">
   <div *ngIf="turno">
     <p class="fs-2">Atención de Turno</p>
-    <p><strong>Especialista:</strong></p>
+
+    <hr>
+
+    <p class="fs-4"><strong>Especialista:</strong></p>
 
     <div class="row" *ngIf="turno">
       <div class="col-sm-6 mt-3">
         <app-especialista-card [especialista]="turno?.especialista"></app-especialista-card>
       </div>
       <div class="col-sm-6 mt-3">
+        <p class="fs-4">
+          <strong>Paciente:</strong> {{ turno.paciente?.nombre }} {{ turno.paciente?.apellido }}
+        </p>
+        <p class="fs-4">
+          <strong>Turno Fecha:</strong> {{ getFormattedDate() | date:'yyyy-MM-dd HH:mm:ss' }}
+        </p>
         <app-especialidades-card [especialidad]="turno?.especialidad"></app-especialidades-card>
       </div>
     </div>
 
+    <p class="fs-5">Datos de Paciente : </p>
     <hr>
-
-    <p>
-      <strong>Paciente:</strong> {{ turno.paciente?.nombre }} {{ turno.paciente?.apellido }}
-      <strong>Turno Fecha:</strong> {{ getFormattedDate() | date:'yyyy-MM-dd HH:mm:ss' }}
-    </p>
 
     <!-- Form Section -->
     <form [formGroup]="createForm">
@@ -101,32 +106,31 @@
       </div>
 
 
+      <p class="fs-5">Datos Adicionales ( hasta tres ) : </p>
+      <hr>
+
       <form formArrayName="dinamicos" class="row row-cols-lg-auto g-3 align-items-center">
-        <div *ngFor="let control of dinamicosFormArray.controls; let i = index" class="row">
+        <div class="row mt-2" *ngFor="let control of dinamicosFormArray.controls; let i = index">
 
-          
-
-          <div class="col-12">
+          <div class="col-5">
             <label [for]="'dinamicoKey' + i" class="form-label">Dato:</label>
             <div class="input-group">
-              <div class="input-group-text">@</div>
               <input type="text" class="form-control" [id]="'dinamicoKey' + i"
-              [formControl]="dinamicosFormArray.controls[i].get('dinamicoKey')" required>
+                [formControl]="dinamicosFormArray.controls[i].get('dinamicoKey')" required>
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-5">
             <label [for]="'dinamicoValue' + i" class="form-label">Valor:</label>
             <div class="input-group">
               <input type="text" class="form-control" [id]="'dinamicoValue' + i"
-              [formControl]="dinamicosFormArray.controls[i].get('dinamicoValue')" required>
+                [formControl]="dinamicosFormArray.controls[i].get('dinamicoValue')" required>
             </div>
           </div>
 
+          <div class="col-2">
+            <label class="form-label">Borrar:</label>
 
-
-
-          <div class="col-12">
             <button type="button" class="btn btn-danger" (click)="deleteDinamico(i)"><i
                 class="fa fa-trash"></i></button>
           </div>
@@ -134,13 +138,15 @@
         </div>
       </form>
 
-      <div class="mt-3 mb-3">
+      <div class="mt-3 mb-3" *ngIf="dinamicosFormArray.length < 3">
         <button type="button" class="btn btn-primary" (click)="addDinamico()">Agregar Dato</button>
       </div>
 
-      <button type="button" class="btn btn-success" (click)="createAtencion()" [disabled]="!createForm.valid">
-        Finalizar Turno
-      </button>
+      <div class="mt-3">
+        <button type="button" class="btn btn-success" (click)="createAtencion()" [disabled]="!createForm.valid">
+          Finalizar Turno
+        </button>
+      </div>
 
     </form>
     <!-- End Form Section -->

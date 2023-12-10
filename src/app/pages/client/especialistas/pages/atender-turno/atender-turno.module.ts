@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AtenderTurnoRoutingModule } from './atender-turno-routing.module';
 import { AtenderTurnoComponent } from './atender-turno.component';
 import { TurnosComponentsModule } from 'src/app/pages/client/turnos/components/turnos-components.module';
@@ -14,6 +14,8 @@ import { EspecialidadesModule } from '../../../especialidades/especialidades.mod
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     AtenderTurnoRoutingModule,
     TurnosComponentsModule,
     EspecialistaComponentsModule,

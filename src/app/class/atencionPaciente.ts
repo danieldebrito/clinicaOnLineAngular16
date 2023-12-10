@@ -1,4 +1,4 @@
-export class atencionPaciente {
+export class AtencionPaciente {
     constructor(
         public id?: string,
         public altura?: number,

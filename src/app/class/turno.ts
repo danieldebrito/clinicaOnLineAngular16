@@ -1,3 +1,4 @@
+import { AtencionPaciente } from './atencionPaciente';
 import { Encuesta } from './encuesta';
 import { Especialidad } from './especialidad';
 import { Especialista } from './usuarios/especialista';
@@ -14,9 +15,9 @@ export class Turno {
         public estado?: EEstadoTurno,
         public motivoRechazo?: string,
         public encuesta?: Encuesta,
+        public atencionPaciente?: AtencionPaciente
     ) { }
 }
-
 
 export enum EEstadoTurno {
     aceptado = 'aceptado',

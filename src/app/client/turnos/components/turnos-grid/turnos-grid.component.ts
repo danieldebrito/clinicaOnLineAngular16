@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Usuario } from 'src/app/auth/class/usuario';
 import { Turno } from 'src/app/class/turno';
 
 @Component({
@@ -9,6 +10,8 @@ import { Turno } from 'src/app/class/turno';
 export class TurnosGridComponent {
 
   @Input() turnos: Turno[] = [];
+  @Input() currentUser: Usuario = { email: '', password: '' };
+
   @Output() thowTurno = new EventEmitter();
   
   public filtroEspecialidad: string = '';

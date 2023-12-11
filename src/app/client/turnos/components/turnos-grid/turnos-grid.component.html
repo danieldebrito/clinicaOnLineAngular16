@@ -15,7 +15,7 @@
     <div class="col-sm-12">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col" *ngFor="let item of turnos">
-                <app-turno-card-detalle [turno]="item"  (throwTurno)="lanzarTurno($event)"></app-turno-card-detalle>
+                <app-turno-card-detalle [turno]="item" [currentUser]="currentUser" (throwTurno)="lanzarTurno($event)"></app-turno-card-detalle>
             </div>
         </div>
     </div>

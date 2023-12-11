@@ -3,6 +3,8 @@ import { EEstadoTurno, Turno } from 'src/app/class/turno';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { turnosService } from 'src/app/services/turnos.service';
+import { Usuario } from 'src/app/auth/class/usuario';
+import { Paciente } from 'src/app/class/usuarios/paciente';
 
 @Component({
   selector: 'app-turno-card-detalle',
@@ -11,6 +13,8 @@ import { turnosService } from 'src/app/services/turnos.service';
 })
 export class TurnoCardDetalleComponent {
   @Input() turno: any = {}; // Ajusta el tipo de acuerdo a tu estructura de datos
+  @Input() currentUser: Usuario = { email: '', password: ''}; // Ajusta el tipo de acuerdo a tu estructura de datos
+
   @Output() throwTurno = new EventEmitter();
 
   constructor(private router: Router, private turnosSv: turnosService) {}
@@ -112,5 +116,10 @@ export class TurnoCardDetalleComponent {
   public atenderTurno(turno: Turno) {
     this.turnosSv.turnoAtender = turno;
     this.router.navigate(['/atenderturno']);
+  }
+
+  public verHistoriaClinica(turno: Paciente) {
+    this.turnosSv.turnoAtender = turno;
+    this.router.navigate(['/historiaclinica']);
   }
 }

@@ -30,6 +30,9 @@ export class MisTurnosComponent implements OnInit {
       if (user) {
         this.usuariosSv.getItemById(user.uid).subscribe((res) => {
           this.currentUser = res;
+
+          console.table(this.currentUser);
+
         });
       } else {
         this.currentUser = { email: '', password: '' };

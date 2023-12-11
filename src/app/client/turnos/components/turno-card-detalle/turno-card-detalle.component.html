@@ -10,7 +10,7 @@
         <li class="list-group-item">Paciente: {{ turno.paciente?.nombre }} {{ turno.paciente?.apellido }}</li>
 
         <!-- //////////////////////////   BOTONERA ESPECIALISTA ////////////////////////////////// -->
-        <li class="list-group-item">
+        <li class="list-group-item" *ngIf="currentUser.role == 'especialista'">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <div *ngIf="turno.estado === 'pendiente'">
                     <button type="button" class="btn btn-danger btn-sm mr-2"
@@ -27,8 +27,28 @@
                 </div>
 
                 <div *ngIf="turno.estado === 'cumplido'">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="verHistoriaClinica(turno)">Ver Historia Clinica</button>
+                </div>
+            </div>
+        </li>
+
+        <!-- //////////////////////////   BOTONERA PACIENTE ////////////////////////////////// -->
+        <li class="list-group-item" *ngIf="currentUser.role == 'paciente'">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <div *ngIf="turno.estado === 'pendiente'">
+                    <button type="button" class="btn btn-danger btn-sm mr-2"
+                        (click)="alertaConfirmacion()">Cancelar</button>
+                </div>
+
+                <div *ngIf="turno.estado === 'aceptado'">
+                    <button type="button" class="btn btn-danger btn-sm mr-2"
+                        (click)="alertaConfirmacion()">Cancelar</button>
+                </div>
+
+                <div *ngIf="turno.estado === 'cumplido'">
                     <button type="button" class="btn btn-primary btn-sm">Ver Historia Clinica</button>
                 </div>
+                
             </div>
         </li>
 

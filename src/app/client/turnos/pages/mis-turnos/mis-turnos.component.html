@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="col-sm-12">
-            <app-turnos-grid [turnos]="turnos" (thowTurno)="turnoUpdate($event)"></app-turnos-grid>
+            <app-turnos-grid [turnos]="turnos" [currentUser]="currentUser" (thowTurno)="turnoUpdate($event)"></app-turnos-grid>
         </div>
 
     </div>

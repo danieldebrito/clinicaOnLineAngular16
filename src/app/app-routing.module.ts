@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'sacarturno', loadChildren: () => import('./client/turnos/pages/sacar-turno/sacar-turno.module').then(m => m.SacarTurnoModule), canActivate: [PacienteGuard] },
   { path: 'misturnos', loadChildren: () => import('./client/turnos/pages/mis-turnos/mis-turnos.module').then(m => m.MisTurnosModule), 
   canActivate: [AuthGuard] },
-  { path: 'administrador', loadChildren: () => import('./client/admin/administrador/administrador.module').then(m => m.AdministradorModule), canActivate: [AdminGuard] },
+  { path: 'administrador', loadChildren: () => import('./client/admin/administrador.module').then(m => m.AdministradorModule), canActivate: [AdminGuard] },
   { path: 'especialidades', loadChildren: () => import('./client/especialidades/especialidades.module').then(m => m.EspecialidadesModule), canActivate: [AdminGuard] },
   { path: 'jornadas', loadChildren: () => import('./client/especialistas/pages/jornada/jornada.module').then(m => m.JornadaModule), canActivate: [EspecialistaGuard] },
   { path: 'atenderturno', loadChildren: () => import('./client/especialistas/pages/atender-turno/atender-turno.module').then(m => m.AtenderTurnoModule) },

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { HistoriaClinicaRoutingModule } from './historia-clinica-routing.module';
 import { HistoriaClinicaComponent } from './historia-clinica.component';
 import { ComponentsModule } from '../pacientes/components/components.module';
+import { EspecialistaComponentsModule } from '../especialistas/components/especialista-components.module';
+
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import { ComponentsModule } from '../pacientes/components/components.module';
   imports: [
     CommonModule,
     HistoriaClinicaRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    EspecialistaComponentsModule
   ]
 })
 export class HistoriaClinicaModule { }

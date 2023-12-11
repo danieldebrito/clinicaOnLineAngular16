@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs';
-import { Turno } from 'src/app/class/turno';
+import { EEstadoTurno, Turno } from 'src/app/class/turno';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 import { turnosService } from 'src/app/services/turnos.service';
 
@@ -10,27 +10,30 @@ import { turnosService } from 'src/app/services/turnos.service';
   styleUrls: ['./historia-clinica.component.scss'],
 })
 export class HistoriaClinicaComponent implements OnInit {
-
   public paciente: Paciente = { email: '', password: '' };
   public turnosPaciente: Turno[] = [];
 
   constructor(private turnosSv: turnosService) {
-    this.paciente = this.turnosSv.turnoPaciente.paciente;
+    // Check if turnoPaciente is defined before accessing its properties
+    if (this.turnosSv.turnoPaciente && this.turnosSv.turnoPaciente.paciente) {
+      this.paciente = this.turnosSv.turnoPaciente.paciente;
+    }
   }
-
-  
 
   ngOnInit(): void {
-    this.turnosSv.getItems()
-      .pipe(
-        switchMap(turnos => {
-          this.turnosPaciente = turnos.filter(e => e.paciente && (e.paciente.uid == this.turnosSv.turnoPaciente.paciente.uid));
-          console.table(this.turnosPaciente);
-          return []; // You can return an observable here if needed
-        })
-      )
-      .subscribe();
+    this.turnosSv.getItems().subscribe((res) => {
+      const turnos: Turno[] = res;
+
+      // Check if turnoPaciente is defined before accessing its properties
+      if (this.turnosSv.turnoPaciente && this.turnosSv.turnoPaciente.paciente) {
+        this.turnosPaciente = turnos.filter(
+          (e) => e.paciente.uid == this.turnosSv.turnoPaciente.paciente.uid
+          && e.estado == EEstadoTurno.cumplido
+        );
+      }
+
+      console.table(this.paciente);
+      console.table(this.turnosPaciente);
+    });
   }
-  
-  
 }

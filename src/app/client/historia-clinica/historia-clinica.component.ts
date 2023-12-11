@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
 import { EEstadoTurno, Turno } from 'src/app/class/turno';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 import { turnosService } from 'src/app/services/turnos.service';
@@ -32,9 +31,6 @@ export class HistoriaClinicaComponent implements OnInit {
           && e.estado == EEstadoTurno.cumplido
         );
       }
-
-      console.table(this.paciente);
-      console.table(this.turnosPaciente);
     });
   }
 }

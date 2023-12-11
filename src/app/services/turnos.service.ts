@@ -16,13 +16,14 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Turno } from 'src/app/class/turno';
 import { Especialista } from '../class/usuarios/especialista';
 import { Especialidad } from '../class/especialidad';
+import { Paciente } from '../class/usuarios/paciente';
 
 @Injectable({
   providedIn: 'root',
 })
 export class turnosService {
 
-  public turnoPaciente: Turno = {};
+  public turnoPaciente: Paciente = { email: '', password: '' };
 
   constructor(private firestore: Firestore) {}
 

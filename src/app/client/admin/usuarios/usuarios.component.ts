@@ -1,41 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'firebase/auth';
-import { Usuario } from 'src/app/auth/class/usuario';
 import { UsuariosService } from 'src/app/auth/services/usuarios.service';
-import { ImageService } from 'src/app/services/File/image.service';
+import { turnosService } from 'src/app/services/turnos.service';
+import { Router } from '@angular/router';
+import { Paciente } from 'src/app/class/usuarios/paciente';
 
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  styleUrls: ['./usuarios.component.scss'],
 })
 export class UsuariosComponent implements OnInit {
-
   public usuarios: any;
 
-  constructor( 
+  constructor(
     private usuariosSvc: UsuariosService,
-    private imagenesSv: ImageService ){}
+    private turnosSv: turnosService,
+    private router: Router
+  ) {}
 
-  public getUsuarios(){
-    this.usuariosSvc.getItems().subscribe( res => {
+  public getUsuarios() {
+    this.usuariosSvc.getItems().subscribe((res) => {
       this.usuarios = res;
       console.table(res);
     });
   }
 
-  public deleteUsuario(usuario: any){
+  public deleteUsuario(usuario: any) {
     this.usuariosSvc.delete(usuario.id);
     this.getUsuarios();
+  }
+
+  public verHistoriaClinica(paciente: Paciente) {
+    this.turnosSv.turnoPaciente = paciente;
+    this.router.navigate(['/historiaclinica']);
   }
 
   ngOnInit(): void {
     this.getUsuarios();
   }
-
 }
-
-
-
-
-

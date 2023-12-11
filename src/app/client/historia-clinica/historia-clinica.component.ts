@@ -10,13 +10,14 @@ import { turnosService } from 'src/app/services/turnos.service';
   styleUrls: ['./historia-clinica.component.scss'],
 })
 export class HistoriaClinicaComponent implements OnInit {
+  
   public paciente: Paciente = { email: '', password: '' };
   public turnosPaciente: Turno[] = [];
 
   constructor(private turnosSv: turnosService) {
     // Check if turnoPaciente is defined before accessing its properties
-    if (this.turnosSv.turnoPaciente && this.turnosSv.turnoPaciente.paciente) {
-      this.paciente = this.turnosSv.turnoPaciente.paciente;
+    if (this.turnosSv.turnoPaciente && this.turnosSv.turnoPaciente) {
+      this.paciente = this.turnosSv.turnoPaciente;
     }
   }
 
@@ -25,9 +26,9 @@ export class HistoriaClinicaComponent implements OnInit {
       const turnos: Turno[] = res;
 
       // Check if turnoPaciente is defined before accessing its properties
-      if (this.turnosSv.turnoPaciente && this.turnosSv.turnoPaciente.paciente) {
+      if (this.turnosSv.turnoPaciente && this.turnosSv.turnoPaciente) {
         this.turnosPaciente = turnos.filter(
-          (e) => e.paciente.uid == this.turnosSv.turnoPaciente.paciente.uid
+          (e) => e.paciente.uid == this.turnosSv.turnoPaciente.uid
           && e.estado == EEstadoTurno.cumplido
         );
       }

@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { turnosService } from 'src/app/services/turnos.service';
 import { Usuario } from 'src/app/auth/class/usuario';
-import { Paciente } from 'src/app/class/usuarios/paciente';
 
 @Component({
   selector: 'app-turno-card-detalle',
@@ -114,12 +113,12 @@ export class TurnoCardDetalleComponent {
   }
 
   public atenderTurno(turno: Turno) {
-    this.turnosSv.turnoPaciente = turno;
+    this.turnosSv.turnoPaciente = turno.paciente;
     this.router.navigate(['/atenderturno']);
   }
 
   public verHistoriaClinica(turno: Turno) {
-    this.turnosSv.turnoPaciente = turno;
+    this.turnosSv.turnoPaciente = turno.paciente;
     this.router.navigate(['/historiaclinica']);
   }
 }

@@ -1,42 +1,60 @@
 <div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <app-paciente-card [paciente]="paciente"></app-paciente-card>
+    </div>
+    <div class="col-sm-9">
+      {{ paciente.nombre }} {{ paciente.nombre }}
+
+    </div>
     <!-- Inside your *ngFor loop in the template -->
-    <div class="col-sm-4" *ngFor="let turno of turnosPaciente">
-      <div class="card">
+    <div class="col-sm-12" *ngFor="let turno of turnosPaciente">
+      <div class="card mt-3">
         <div class="card-body">
           <div *ngIf="turno.atencionPaciente">
             <!-- Check if atencionPaciente is defined -->
+            <div class="row">
+              <div class="col-sm-3">
+                <app-especialista-card [especialista]="turno.especialista"></app-especialista-card>
+                <app-especialidades-card [especialidad]="turno.especialidad"></app-especialidades-card>
+              </div>
+              <div class="col-sm-9">
 
-            <app-especialista-card [especialista]="turno.especialista" ></app-especialista-card>
-  
-            <h5 class="card-title">Atenciones:</h5>
-            <ul class="list-group">
-              <li>{{ turno.fecha }}</li>
-              
-  
-              <!-- Check if atencionPaciente.altura, atencionPaciente.peso, and atencionPaciente.temperatura are defined -->
-              <li *ngIf="turno.atencionPaciente.altura">Altura: {{ turno.atencionPaciente.altura }}</li>
-              <li *ngIf="turno.atencionPaciente.peso">Peso: {{ turno.atencionPaciente.peso }}</li>
-              <li *ngIf="turno.atencionPaciente.temperatura">Temperatura: {{ turno.atencionPaciente.temperatura }}</li>
-  
-              <!-- Add additional checks for other properties if needed -->
-            </ul>
-  
-            <!-- Botón para mostrar el formulario de edición -->
-            <button class="btn btn-primary mt-3" (click)="showEditForm(turno)">Editar Atención</button>
-  
-            <!-- Formulario de edición oculto inicialmente -->
-            <div *ngIf="turno.showEditForm">
-              <!-- Aquí puedes agregar el formulario de edición, por ejemplo, utilizando el componente que proporcioné anteriormente -->
-              <app-turno [turno]="turno"></app-turno>
+                <h5 class="card-title">Atenciones:</h5>
+
+                <ul class="list-group">
+                  <li>{{ turno.fecha }}</li>
+
+                  <li *ngIf="turno.atencionPaciente.altura">Altura: {{ turno.atencionPaciente.altura }}</li>
+                  <li *ngIf="turno.atencionPaciente.peso">Peso: {{ turno.atencionPaciente.peso }}</li>
+                  <li *ngIf="turno.atencionPaciente.temperatura">Temperatura: {{ turno.atencionPaciente.temperatura }}
+                  <li *ngIf="turno.atencionPaciente.presion">Presion: {{ turno.atencionPaciente.presion }}
+
+                  </li>
+                </ul>
+
+                <p>
+                  {{ turno.atencionPaciente.resena }}
+                </p>
+
+
+                <div class="col-sm-12" *ngFor="let item of turno.dinamicos">
+
+                  {{ item }}
+
+                </div>
+
+
+              </div>
             </div>
           </div>
-  
+
           <div *ngIf="!turno.atencionPaciente">
-            <!-- Show a message if atencionPaciente is undefined -->
             <p>No hay atención médica registrada para este turno.</p>
           </div>
+
         </div>
       </div>
     </div>
   </div>
-  
+</div>

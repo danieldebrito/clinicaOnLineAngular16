@@ -36,6 +36,8 @@ export class MisPacientesComponent implements OnInit {
     private turnosSv: turnosService
   ) {}
 
+
+
   public getPacientes() {
     this.usuariosSv.getItems().subscribe((res) => {
       this.pacientes = res;
@@ -58,9 +60,9 @@ export class MisPacientesComponent implements OnInit {
 
   public pacienteTurnos(pacientes: Paciente[]) {
     this.mysPacienteTurnos = [];
-  
+
     const pacientesUnicos = Array.from(new Set(pacientes.map(p => p.uid)));
-  
+
     pacientesUnicos.forEach(uid => {
       const paciente = pacientes.find(p => p.uid === uid);
       if (paciente) {
@@ -71,7 +73,7 @@ export class MisPacientesComponent implements OnInit {
             .sort((a, b) => (b.fecha as any).seconds - (a.fecha as any).seconds) // Access timestamp directly
             .slice(0, 3), // Select the first three
         };
-  
+
         this.mysPacienteTurnos.push(pacienteTurno);
       }
     });
@@ -85,8 +87,8 @@ export class MisPacientesComponent implements OnInit {
     }
     return '';
   }
-  
-  
+
+
   // USUARIOS //////////////////////////////////////////////////////////////////////////////////
   private getCurrentUser() {
     this.afAuth.authState.subscribe((user) => {

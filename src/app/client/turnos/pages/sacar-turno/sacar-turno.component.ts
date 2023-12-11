@@ -60,7 +60,7 @@ export class SacarTurnoComponent implements OnInit {
   ) {}
 
   tinyAlert() {
-    Swal.fire('Turno Solicitado con exito !!');
+    Swal.fire('Turno Solicitado exitosamente!!');
   }
 
   //  mat-horizontal-stepper Angular Material  //////////////////////////////////////////////
@@ -100,9 +100,6 @@ export class SacarTurnoComponent implements OnInit {
     this.especialidades = this.jornadas
       .filter((j) => j.userUID === event.uid && j.especialidad) // Verificar especialidad no sea undefined
       .map((j) => j.especialidad);
-
-    console.log(this.especialidades);
-
     this.especialistaSeleccionado = event;
   }
 

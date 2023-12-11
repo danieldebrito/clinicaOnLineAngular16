@@ -114,11 +114,15 @@ export class TurnoCardDetalleComponent {
 
   public atenderTurno(turno: Turno) {
     this.turnosSv.turnoPaciente = turno.paciente;
+    this.turnosSv.turnoAtencion = turno;
+
     this.router.navigate(['/atenderturno']);
   }
 
   public verHistoriaClinica(turno: Turno) {
     this.turnosSv.turnoPaciente = turno.paciente;
+    this.turnosSv.turnoAtencion = turno;
+
     this.router.navigate(['/historiaclinica']);
   }
 }

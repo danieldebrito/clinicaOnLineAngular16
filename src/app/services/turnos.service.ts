@@ -24,6 +24,7 @@ import { Paciente } from '../class/usuarios/paciente';
 export class turnosService {
 
   public turnoPaciente: Paciente = { email: '', password: '' };
+  public turnoAtencion: Turno = {};
 
   constructor(private firestore: Firestore) {}
 
@@ -84,14 +85,14 @@ export class turnosService {
 
   public getTurnosByEspecialistaAndEspecialidad(especialista: Especialista, especialidad: Especialidad) {
     const colRef = collection(this.firestore, 'turnos');
-  
+
     // Create a query against the collection.
     const q = query(
       colRef,
       where('especialista.uid', '==', especialista.uid),
       where('especialidad.id', '==', especialidad.id)
     );
-  
+
     return q;
   }
 }

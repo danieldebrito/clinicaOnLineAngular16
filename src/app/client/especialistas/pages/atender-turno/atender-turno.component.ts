@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AtencionPaciente } from 'src/app/class/atencionPaciente';
 import { EEstadoTurno } from 'src/app/class/turno';
 import { turnosService } from 'src/app/services/turnos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-atender-turno',
@@ -24,7 +26,13 @@ export class AtenderTurnoComponent implements OnInit {
     'dinamicos': new FormArray([])
   });
 
-  constructor(private turnosSv: turnosService) { }
+  constructor(
+    private turnosSv: turnosService,
+    private router: Router) { }
+
+  tinyAlert() {
+    Swal.fire('Turno atendido exitosamente !!');
+  }
 
   addDinamico() {
     (this.createForm.get('dinamicos') as FormArray).push(new FormGroup({
@@ -32,11 +40,11 @@ export class AtenderTurnoComponent implements OnInit {
       'dinamicoValue': new FormControl('', Validators.required),
     }));
   }
-  
+
   deleteDinamico(index: number) {
     (this.createForm.get('dinamicos') as FormArray).removeAt(index);
   }
-  
+
   get dinamicosFormArray() {
     return this.createForm.get('dinamicos') as FormArray;
   }
@@ -57,9 +65,12 @@ export class AtenderTurnoComponent implements OnInit {
 
       this.turno.atencionPaciente = newItem;
       this.turno.estado = EEstadoTurno.cumplido;
-  
+
       this.turnosSv.update(this.turno.id, this.turno);
-  
+
+      this.router.navigate(['/misturnos']);
+      this.tinyAlert();
+
     } else {
       console.log("El formulario no es válido, realiza alguna acción o muestra un mensaje de error.");
     }
@@ -74,7 +85,7 @@ export class AtenderTurnoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.turno = this.turnosSv.turnoPaciente;
+    this.turno = this.turnosSv.turnoAtencion;
     console.log(this.turno);
   }
 }

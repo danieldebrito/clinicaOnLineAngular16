@@ -74,7 +74,7 @@ export class AtenderTurnoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.turno = this.turnosSv.turnoAtender;
+    this.turno = this.turnosSv.turnoPaciente;
     console.log(this.turno);
   }
 }

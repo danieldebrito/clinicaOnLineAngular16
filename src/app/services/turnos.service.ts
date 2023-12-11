@@ -22,7 +22,7 @@ import { Especialidad } from '../class/especialidad';
 })
 export class turnosService {
 
-  public turnoAtender: Turno = {};
+  public turnoPaciente: Turno = {};
 
   constructor(private firestore: Firestore) {}
 

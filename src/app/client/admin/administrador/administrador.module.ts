@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AdministradorRoutingModule } from './administrador-routing.module';
 import { AdministradorComponent } from './administrador.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
-import { UsuariosModule } from '../usuarios/usuarios.module';
+import { UsuariosModule } from './pages/usuarios/usuarios.module';
 
 
 @NgModule({

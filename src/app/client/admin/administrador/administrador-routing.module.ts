@@ -7,8 +7,10 @@ const routes: Routes = [
     path: '',
     component: AdministradorComponent,
     children: [
-      { path: 'usuarios', loadChildren: () => import('src/app/client/admin/usuarios/usuarios.module').then(m => m.UsuariosModule) },
+      { path: 'usuarios', loadChildren: () => import('src/app/client/admin/administrador/pages/usuarios/usuarios.module').then(m => m.UsuariosModule) },
       { path: 'especialidades', loadChildren: () => import('src/app/client/especialidades/especialidades.module').then(m => m.EspecialidadesModule) },
+      { path: 'logs', loadChildren: () => import('src/app/client/admin/administrador/pages/logs/logs.module').then(m => m.LogsModule) },
+
     ],
   },
   // { path: 'archivos', component: ArchivosComponent },

@@ -3,10 +3,7 @@
     <div class="col-sm-3">
       <app-paciente-card [paciente]="paciente"></app-paciente-card>
     </div>
-    <div class="col-sm-9">
-      {{ paciente.nombre }} {{ paciente.nombre }}
-
-    </div>
+    <div class="col-sm-9">{{ paciente.nombre }} {{ paciente.nombre }}</div>
     <!-- Inside your *ngFor loop in the template -->
     <div class="col-sm-12" *ngFor="let turno of turnosPaciente">
       <div class="card mt-3">
@@ -15,36 +12,39 @@
             <!-- Check if atencionPaciente is defined -->
             <div class="row">
               <div class="col-sm-3">
-                <app-especialista-card [especialista]="turno.especialista"></app-especialista-card>
-                <app-especialidades-card [especialidad]="turno.especialidad"></app-especialidades-card>
+                <app-especialista-card
+                  [especialista]="turno.especialista"
+                ></app-especialista-card>
+                <app-especialidades-card
+                  [especialidad]="turno.especialidad"
+                ></app-especialidades-card>
               </div>
               <div class="col-sm-9">
-
                 <h5 class="card-title">Atenciones:</h5>
 
                 <ul class="list-group">
                   <li>{{ turno.fecha }}</li>
 
-                  <li *ngIf="turno.atencionPaciente.altura">Altura: {{ turno.atencionPaciente.altura }}</li>
-                  <li *ngIf="turno.atencionPaciente.peso">Peso: {{ turno.atencionPaciente.peso }}</li>
-                  <li *ngIf="turno.atencionPaciente.temperatura">Temperatura: {{ turno.atencionPaciente.temperatura }}
-                  <li *ngIf="turno.atencionPaciente.presion">Presion: {{ turno.atencionPaciente.presion }}
-
+                  <li *ngIf="turno.atencionPaciente.altura">
+                    Altura: {{ turno.atencionPaciente.altura }}
+                  </li>
+                  <li *ngIf="turno.atencionPaciente.peso">
+                    Peso: {{ turno.atencionPaciente.peso }}
+                  </li>
+                  <li *ngIf="turno.atencionPaciente.temperatura">
+                    Temperatura: {{ turno.atencionPaciente.temperatura }}
+                  </li>
+                  <li *ngIf="turno.atencionPaciente.presion">
+                    Presion: {{ turno.atencionPaciente.presion }}
                   </li>
                 </ul>
-
                 <p>
                   {{ turno.atencionPaciente.resena }}
                 </p>
 
-
                 <div class="col-sm-12" *ngFor="let item of turno.dinamicos">
-
                   {{ item }}
-
                 </div>
-
-
               </div>
             </div>
           </div>
@@ -52,7 +52,6 @@
           <div *ngIf="!turno.atencionPaciente">
             <p>No hay atención médica registrada para este turno.</p>
           </div>
-
         </div>
       </div>
     </div>

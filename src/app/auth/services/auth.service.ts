@@ -46,9 +46,11 @@ export class AuthService {
       .then((result) => {
         this.SetUserData(result.user, usuario);
         this.afAuth.authState.subscribe((user) => {
+
+          ////////////////  guardo el log ///////////////////////////////////
           if (user) {
             let log: UserLog = {
-              uid: user.uid,
+              usuario: usuario,
               fechaIngreso: new Date(),
             };
 

@@ -1,7 +1,9 @@
+import { Usuario } from "./usuario";
+
 export class UserLog {
     constructor(
       public id?: string,
-      public uid?: any,
-      public fechaIngreso?: Date,
+      public usuario?: any,
+      public fechaIngreso?: any,
     ) { }
   }

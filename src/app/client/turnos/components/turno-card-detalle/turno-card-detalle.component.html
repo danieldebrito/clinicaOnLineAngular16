@@ -5,7 +5,7 @@
             Fecha: {{ getFormattedDate() | date:'yyyy-MM-dd HH:mm:ss' }}
             <span [class]="getBadgeClass()"> {{turno.estado}} </span>
         </li>
-        <li class="list-group-item">Especialista: {{ turno.especialista?.nombre }} {{ turno.especialista?.apellido }}
+        <li class="list-group-item">Especialista: {{ turno.especialista | tituloMedicoSexo }} {{ turno.especialista?.nombre }} {{ turno.especialista?.apellido }}
         </li>
         <li class="list-group-item">Paciente: {{ turno.paciente?.nombre }} {{ turno.paciente?.apellido }}</li>
 

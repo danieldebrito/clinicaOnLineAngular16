@@ -14,6 +14,7 @@ import { TurnoCardComponent } from './turno-card/turno-card.component';
 import { TurnoCardDetalleComponent } from './turno-card-detalle/turno-card-detalle.component';
 import { TurnosGrisHorariosComponent } from './turnos-gris-horarios/turnos-gris-horarios.component';
 import { DirectivesModule } from 'src/app/directives/directives.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DirectivesModule } from 'src/app/directives/directives.module';
     EspecialistaComponentsModule,
     EspecialidadesModule,
     FormsModule,
-    DirectivesModule
+    DirectivesModule,
+    PipesModule
   ],
   exports: [
     BarraBusquedaComponent,

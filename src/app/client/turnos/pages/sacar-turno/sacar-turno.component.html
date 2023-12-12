@@ -39,7 +39,7 @@
 
         <app-turnos-generador-dias [jornadas]="jornadasFiltradas" [especialista]="especialistaSeleccionado"
           [especialidad]="especialidadSeleccionada" (throwTurno)="seleccionarHorariosPorDiaTurnos($event)"
-          [paciente]="paciente" (click)="goForward(stepper)">
+          [paciente]="paciente" [turnos]="turnos" (click)="goForward(stepper)">
         </app-turnos-generador-dias>
 
         <div>

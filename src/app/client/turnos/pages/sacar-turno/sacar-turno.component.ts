@@ -104,10 +104,14 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   // TURNOS ////////////////////////////////////////////////////////////////////////////////////
-  public seleccionarHorariosPorDiaTurnos(event) {
-    console.log(event.turnoSelect);
-    console.log(event.turnos);
 
+  public getTurnos(){
+    this.turnosSv.getItems().subscribe( res => {
+      this.turnos = res;
+    });
+  }
+
+  public seleccionarHorariosPorDiaTurnos(event) {
     this.turnosHorariosDia = event.turnos.filter(
       (e) =>
         e.fecha.getDate() === event.turnoSelect.fecha.getDate() &&
@@ -144,5 +148,6 @@ export class SacarTurnoComponent implements OnInit {
     this.getCurrentUser();
     this.getEspecialistas();
     this.getJornadas();
+    this.getTurnos();
   }
 }

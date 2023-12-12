@@ -13,6 +13,7 @@ import { TurnoCardHorarioComponent } from './turno-card-dia-horario/turno-card-d
 import { TurnoCardComponent } from './turno-card/turno-card.component';
 import { TurnoCardDetalleComponent } from './turno-card-detalle/turno-card-detalle.component';
 import { TurnosGrisHorariosComponent } from './turnos-gris-horarios/turnos-gris-horarios.component';
+import { DirectivesModule } from 'src/app/directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TurnosGrisHorariosComponent } from './turnos-gris-horarios/turnos-gris-
     CommonModule,
     EspecialistaComponentsModule,
     EspecialidadesModule,
-    FormsModule
+    FormsModule,
+    DirectivesModule
   ],
   exports: [
     BarraBusquedaComponent,

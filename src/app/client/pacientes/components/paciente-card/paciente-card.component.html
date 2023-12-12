@@ -5,7 +5,7 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <p class="fs-4">{{ paciente?.nombre }} {{ paciente?.apellido }}</p>
+          <p class="fs-4">{{ paciente | nombreApellidoPipe }}</p>
           <p class="card-text"> {{ paciente?.email }} </p>
         </div>
       </div>

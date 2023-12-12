@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PacienteCardComponent } from './paciente-card/paciente-card.component';
 import { PacientesGridComponent } from './pacientes-grid/pacientes-grid.component';
-
-
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +10,8 @@ import { PacientesGridComponent } from './pacientes-grid/pacientes-grid.componen
     PacientesGridComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    PipesModule
   ],
   exports: [
     PacienteCardComponent,

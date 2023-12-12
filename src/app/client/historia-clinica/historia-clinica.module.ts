@@ -1,3 +1,4 @@
+import { PipesModule } from './../../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +18,8 @@ import { EspecialidadesModule } from '../especialidades/especialidades.module';
     HistoriaClinicaRoutingModule,
     ComponentsModule,
     EspecialistaComponentsModule,
-    EspecialidadesModule
+    EspecialidadesModule,
+    PipesModule
   ]
 })
 export class HistoriaClinicaModule { }

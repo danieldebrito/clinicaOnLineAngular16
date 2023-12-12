@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Especialidad } from 'src/app/class/especialidad';
 import { Jornada } from 'src/app/class/jornada';
-import { EEstadoTurno, Turno } from 'src/app/class/turno';
+import { EEstadoTurno, Fecha, Turno } from 'src/app/class/turno';
 import { TurnoDay } from 'src/app/class/turnoDay';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 
@@ -66,14 +66,14 @@ export class TurnosGeneradorDiasComponent {
           // Sumarle i * duracionTurno minutos al clon, ( jornada.horaInicioJornada * 60 ) es la hora de inicio de la jornada en minutos
           clonedDate.setMinutes(
             clonedDate.getMinutes() +
-              jornada.horaInicioJornada * 60 +
-              i * jornada.duracionTurno
+            jornada.horaInicioJornada * 60 +
+            i * jornada.duracionTurno
           );
 
           this.turnosGenerados.push({
             fecha: clonedDate,
             dia: this.getNombreDia(clonedDate.getDay()),
-            //diahora: this.getFechaHora(fechaTurno),
+            fechaHora: this.getFechaHora(clonedDate),
             especialista: this.especialista,
             especialidad: this.especialidad,
             paciente: this.paciente,
@@ -82,6 +82,8 @@ export class TurnosGeneradorDiasComponent {
         }
       }
     }
+
+    this.turnosGenerados = this.quitarTurnosTomados(this.turnosGenerados, this.turnos);
 
     this.turnosGeneradosDias = this.turnosGenerados
       .map((tg) => ({
@@ -100,6 +102,46 @@ export class TurnosGeneradorDiasComponent {
               item.year === value.year
           ) === index
       );
+
+  }
+
+  public getFechaHora(fecha: Date): Fecha {
+
+    let fechaHora: Fecha = {};
+
+    fechaHora.Hora = fecha.getHours();
+    fechaHora.Minutos = fecha.getMinutes();
+    fechaHora.dia = fecha.getDay();
+    fechaHora.mes = fecha.getMonth() + 1;
+    fechaHora.year = fecha.getFullYear();
+
+    return fechaHora;
+  }
+
+  public quitarTurnosTomados(turnosNuevos: Turno[], turnosTomados: Turno[]): Turno[] {
+    return turnosNuevos.filter(turnoNuevo => {
+      // La función some devuelve true si al menos un elemento del array cumple la condición
+      return !turnosTomados.some(turnoTomado => this.sonIguales(turnoNuevo, turnoTomado));
+    });
+  }
+
+  public sonIguales(turnoNuevo: Turno, turnoTomado: Turno): boolean {
+    return (
+      this.sonFechasIguales(turnoNuevo.fechaHora, turnoTomado.fechaHora) &&
+      turnoNuevo.especialista.id === turnoTomado.especialista.id &&
+      turnoNuevo.paciente.id === turnoTomado.paciente.id &&
+      turnoNuevo.especialidad.id === turnoTomado.especialidad.id
+    );
+  }
+
+  private sonFechasIguales(fecha1: Fecha, fecha2: Fecha): boolean {
+    return (
+      fecha1.dia === fecha2.dia &&
+      fecha1.mes === fecha2.mes &&
+      fecha1.year === fecha2.year &&
+      fecha1.Hora === fecha2.Hora &&
+      fecha1.Minutos === fecha2.Minutos
+    );
   }
 
   public getNombreDia(dia: number) {

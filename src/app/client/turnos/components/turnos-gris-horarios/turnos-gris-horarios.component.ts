@@ -12,6 +12,5 @@ export class TurnosGrisHorariosComponent {
 
   public lanzarTurno(turno) {
     this.throwTurnoSeleccionado.emit(turno);
-    console.log(turno);
   }
 }

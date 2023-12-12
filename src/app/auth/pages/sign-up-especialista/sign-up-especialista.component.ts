@@ -12,6 +12,9 @@ import { StorageService } from 'src/app/services/File/storage.service';
 })
 export class SignUpEspecialistaComponent implements OnInit {
 
+  public captchaHabilitado = true;
+  public captchaResultado = false;
+
   public photoSelected: any = 'assets/images/placeholder-user.png';
   public image: any = {};
   public urlPhotoPath = '';
@@ -39,6 +42,7 @@ export class SignUpEspecialistaComponent implements OnInit {
     fechaNacimiento: new FormControl('', [Validators.required, Validators.minLength(6)]),
     //role: new FormControl('', [Validators.required, Validators.minLength(6)]),
     //habilitado: new FormControl('', [Validators.required, Validators.minLength(6)])
+    captchaHabilitado: new FormControl(true),
   });
 
   constructor(
@@ -101,11 +105,33 @@ export class SignUpEspecialistaComponent implements OnInit {
     }
   }
 
-  /*
-  public GoogleAuth() {
-    this.authService.GoogleAuth();
+
+/////////////////////////////////  CAPTCHA ///////////////////////////////////////////////////////////////////
+  public onCaptchaVerified(isVerified: boolean) {
+    if (isVerified) {
+      console.log('Captcha verificado correctamente');
+      this.captchaResultado = true;
+    } else {
+      console.log('Captcha incorrecto');
+      this.captchaResultado = false;
+    }
   }
-  */
+
+  public onCheckboxChange() {
+    // Este método se ejecutará cuando el estado del checkbox cambie
+    const valorActual = this.createForm.get('captchaHabilitado')?.value;
+
+    // acciónes del checkbox
+    if (!valorActual) {
+      console.log('El checkbox ha sido desactivado');
+      this.captchaHabilitado = false;
+    } else  {
+      console.log('El checkbox ha sido activado');
+      this.captchaHabilitado = true;
+    }
+  }
+  /////////////////////////////////  END CAPTCHA ///////////////////////////////////////////////////////////////////
+
 
   ngOnInit(): void {
     this.role = this.usuariosService.role;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/auth/services/usuarios.service';
-import { Usuario, ERole } from 'src/app/auth/class/usuario';
+import { ERole } from 'src/app/auth/class/usuario';
 import { StorageService } from 'src/app/services/File/storage.service';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 
@@ -12,6 +12,8 @@ import { Paciente } from 'src/app/class/usuarios/paciente';
   styleUrls: ['./sign-up-paciente.component.scss']
 })
 export class SignUpPacienteComponent {
+
+  public isCaptchaDisabled: boolean = false;
 
   // FOTO DE PERFIL
   public photoSelected: any = 'assets/images/placeholder-user.png';
@@ -127,11 +129,15 @@ export class SignUpPacienteComponent {
       // El formulario no es válido, realiza alguna acción o muestra un mensaje de error.
     }
   }
-/*
-  public GoogleAuth() {
-    this.authService.GoogleAuth();
+
+  public onCaptchaVerified(isVerified: boolean) {
+    if (isVerified) {
+      console.log('Captcha verificado correctamente. Realizar operación de alta.');
+      // Lógica para realizar la operación de alta aquí
+    } else {
+      console.log('Captcha incorrecto. No se realizará la operación de alta.');
+    }
   }
-  */
 
   ngOnInit(): void {
     this.role = this.usuariosService.role;

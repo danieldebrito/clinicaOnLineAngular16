@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpEspecialistaRoutingModule } from './sign-up-especialista-routing.module';
 import { SignUpEspecialistaComponent } from './sign-up-especialista.component';
+import { DirectivesModule } from 'src/app/directives/directives.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SignUpEspecialistaComponent } from './sign-up-especialista.component';
     CommonModule,
     SignUpEspecialistaRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DirectivesModule
   ]
 })
 export class SignUpEspecialistaModule { }

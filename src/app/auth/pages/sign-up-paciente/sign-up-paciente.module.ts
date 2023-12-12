@@ -4,16 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpPacienteRoutingModule } from './sign-up-paciente-routing.module';
 import { SignUpPacienteComponent } from './sign-up-paciente.component';
 
-
 @NgModule({
   declarations: [
     SignUpPacienteComponent
   ],
   imports: [
     CommonModule,
-    SignUpPacienteRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SignUpPacienteRoutingModule
   ]
 })
 export class SignUpPacienteModule { }

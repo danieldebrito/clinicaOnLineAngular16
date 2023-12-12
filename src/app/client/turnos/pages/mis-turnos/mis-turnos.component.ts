@@ -11,6 +11,9 @@ import { turnosService } from 'src/app/services/turnos.service';
   styleUrls: ['./mis-turnos.component.scss'],
 })
 export class MisTurnosComponent implements OnInit {
+
+  public isLoading = true;
+
   public turnos: Turno[] = [];
   public currentUser: Usuario = { email: '', password: '' };
 
@@ -67,6 +70,11 @@ export class MisTurnosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUser();
-    this.getTurnos();
+
+    setTimeout(() => {
+      this.isLoading = false;
+      this.getTurnos();
+    }, 3000);
+
   }
 }

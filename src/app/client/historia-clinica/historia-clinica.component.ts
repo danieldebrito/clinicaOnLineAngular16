@@ -9,7 +9,7 @@ import { turnosService } from 'src/app/services/turnos.service';
   styleUrls: ['./historia-clinica.component.scss'],
 })
 export class HistoriaClinicaComponent implements OnInit {
-  
+
   public paciente: Paciente = { email: '', password: '' };
   public turnosPaciente: Turno[] = [];
 
@@ -18,6 +18,13 @@ export class HistoriaClinicaComponent implements OnInit {
     if (this.turnosSv.turnoPaciente && this.turnosSv.turnoPaciente) {
       this.paciente = this.turnosSv.turnoPaciente;
     }
+  }
+
+  getFormattedDate(fecha): string {
+
+      const date = fecha.toDate();
+      return date.toISOString();
+
   }
 
   ngOnInit(): void {

@@ -177,6 +177,11 @@ export class TurnoCardDetalleComponent {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  handleRating(rating: number): void {
+    // Manejar la calificación seleccionada, por ejemplo, enviarla al servidor
+    console.log(`Se ha seleccionado una calificación de ${rating} estrellas.`);
+  }
+
   public atenderTurno(turno: Turno) {
     this.turnosSv.turnoPaciente = turno.paciente;
     this.turnosSv.turnoAtencion = turno;

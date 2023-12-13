@@ -15,6 +15,7 @@ import { TurnoCardDetalleComponent } from './turno-card-detalle/turno-card-detal
 import { TurnosGrisHorariosComponent } from './turnos-gris-horarios/turnos-gris-horarios.component';
 import { DirectivesModule } from 'src/app/directives/directives.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { AppStarRatingComponent } from './app-star-rating/app-star-rating.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     TurnoCardHorarioComponent,
     TurnoCardComponent,
     TurnoCardDetalleComponent,
-    TurnosGrisHorariosComponent
+    TurnosGrisHorariosComponent,
+    AppStarRatingComponent
   ],
   imports: [
     CommonModule,

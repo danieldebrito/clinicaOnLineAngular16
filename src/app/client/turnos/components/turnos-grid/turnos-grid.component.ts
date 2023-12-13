@@ -14,14 +14,15 @@ export class TurnosGridComponent {
 
   @Output() thowTurno = new EventEmitter();
   
-  public filtroEspecialidad: string = '';
+  public filtroPalabra: string = '';
 
   public aplicarFiltro(): void {
     this.turnos = this.turnos.filter((turno: Turno) => {
-      const especialidadIncluida = turno.especialidad?.nombre.toLowerCase().includes(this.filtroEspecialidad.toLowerCase());
-      const especialistaIncluido = turno.especialista?.nombre?.toLowerCase().includes(this.filtroEspecialidad.toLowerCase());
+      const especialidad = turno.especialidad?.nombre.toLowerCase().includes(this.filtroPalabra.toLowerCase());
+      const especialistadNombre = turno.especialista?.nombre.toLowerCase().includes(this.filtroPalabra.toLowerCase());
+      const especialistaApellido = turno.especialista?.apellido?.toLowerCase().includes(this.filtroPalabra.toLowerCase());
 
-      return especialidadIncluida || especialistaIncluido;
+      return especialidad || especialistadNombre || especialistaApellido;
     });
   }
 

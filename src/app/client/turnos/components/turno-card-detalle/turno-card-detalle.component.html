@@ -9,6 +9,7 @@
             nombreApellidoPipe }}
         </li>
         <li class="list-group-item">Paciente: {{ turno?.paciente | nombreApellidoPipe }} </li>
+        <li class="list-group-item">Especialidad: {{ turno?.especialidad.nombre }}</li>
 
         <!-- //////////////////////////   BOTONERA ESPECIALISTA ////////////////////////////////// -->
         <li class="list-group-item" *ngIf="currentUser.role == 'especialista'">
@@ -62,6 +63,11 @@
 
                 </div>
             </div>
+
+            <!--
+            <app-app-star-rating [maxRating]="5" (ratingClicked)="handleRating($event)"></app-app-star-rating>
+            -->
+
         </li>
 
 

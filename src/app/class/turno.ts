@@ -16,6 +16,7 @@ export class Turno {
     public estado?: EEstadoTurno,
     public motivoRechazo?: string,
     public encuesta?: Encuesta,
+    public calificacion?: Calificacion,
     public atencionPaciente?: AtencionPaciente
   ) { }
 }
@@ -35,6 +36,13 @@ export class Fecha {
     public year?: number,
     public Hora?: number,
     public Minutos?: number,
+  ) { }
+}
+
+export class Calificacion {
+  constructor(
+    public nota?: number,
+    public cometario?: string,
   ) { }
 }
 

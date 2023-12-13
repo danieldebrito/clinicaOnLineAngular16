@@ -50,7 +50,7 @@ export class MisTurnosComponent implements OnInit {
 
             if (res.role == ERole.especialista) {
               this.turnos = turnos.filter(
-                (t) => t.especialista.uid === this.currentUser.uid && t.estado != EEstadoTurno.cancelado
+                (t) => t.especialista.uid === this.currentUser.uid /*&& t.estado != EEstadoTurno.cancelado*/
               );
             }
             if (res.role == ERole.paciente) {

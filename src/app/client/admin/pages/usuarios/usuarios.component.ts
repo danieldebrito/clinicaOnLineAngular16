@@ -4,6 +4,7 @@ import { turnosService } from 'src/app/services/turnos.service';
 import { Router } from '@angular/router';
 import { Paciente } from 'src/app/class/usuarios/paciente';
 import * as XLSX from 'xlsx';
+import { Usuario } from 'src/app/auth/class/usuario';
 
 @Component({
   selector: 'app-usuarios',
@@ -22,7 +23,6 @@ export class UsuariosComponent implements OnInit {
   public getUsuarios() {
     this.usuariosSvc.getItems().subscribe((res) => {
       this.usuarios = res;
-      console.table(res);
     });
   }
 
@@ -34,6 +34,15 @@ export class UsuariosComponent implements OnInit {
   public verHistoriaClinica(paciente: Paciente) {
     this.turnosSv.turnoPaciente = paciente;
     this.router.navigate(['/historiaclinica']);
+  }
+
+  public habilitarEspecialista(usuario: Usuario){
+    console.log(usuario);
+    usuario.habilitado = !usuario.habilitado;
+
+    console.log(usuario);
+
+    this.usuariosSvc.update(usuario.uid, usuario);
   }
 
   public exportToExcel() {

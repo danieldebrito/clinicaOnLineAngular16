@@ -5,7 +5,8 @@
             Fecha: {{ getFormattedDate() | date:'yyyy-MM-dd HH:mm:ss' }}
             <span [class]="getBadgeClass()"> {{turno.estado}} </span>
         </li>
-        <li class="list-group-item">Especialista: {{ turno?.especialista | tituloMedicoSexo }} {{ turno?.especialista | nombreApellidoPipe }}
+        <li class="list-group-item">Especialista: {{ turno?.especialista | tituloMedicoSexo }} {{ turno?.especialista |
+            nombreApellidoPipe }}
         </li>
         <li class="list-group-item">Paciente: {{ turno?.paciente | nombreApellidoPipe }} </li>
 
@@ -47,10 +48,19 @@
                 </div>
 
                 <div *ngIf="turno.estado === 'cumplido'">
-                    <button type="button" class="btn btn-primary btn-sm" (click)="verHistoriaClinica(turno)">Ver
+                    <button type="button" class="btn btn-primary btn-sm" (click)="verHistoriaClinica(turno)">
                         Historia Clinica</button>
-                </div>
 
+                    <div *ngIf="turno.calificacion">
+                        <small class="text-muted">Este turno ya ha sido calificado.</small>
+                    </div>
+                    <!-- Ocultar botón si el turno está calificado -->
+                    <button *ngIf="!turno.calificacion" type="button" class="btn btn-primary btn-sm"
+                        (click)="alertaConfirmacionCalificacion()">
+                        Calificar Atención
+                    </button>
+
+                </div>
             </div>
         </li>
 

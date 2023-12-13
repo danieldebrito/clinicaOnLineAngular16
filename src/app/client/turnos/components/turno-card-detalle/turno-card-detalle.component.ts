@@ -11,8 +11,8 @@ import { Usuario } from 'src/app/auth/class/usuario';
   styleUrls: ['./turno-card-detalle.component.scss'],
 })
 export class TurnoCardDetalleComponent {
-  @Input() turno: any = {}; // Ajusta el tipo de acuerdo a tu estructura de datos
-  @Input() currentUser: Usuario = { email: '', password: ''}; // Ajusta el tipo de acuerdo a tu estructura de datos
+  @Input() turno: any = {}; 
+  @Input() currentUser: Usuario = { email: '', password: ''}; 
 
   @Output() throwTurno = new EventEmitter();
 
@@ -65,7 +65,7 @@ export class TurnoCardDetalleComponent {
     this.throwTurno.emit(this.turno);
   }
 
-  //////  model alerta para cancelar turno /////////////////////////////////////////////////////////////////
+  //////  modal alerta para cancelar turno /////////////////////////////////////////////////////////////////
   alertaConfirmacion() {
     Swal.fire({
       title: '¿Está seguro?',
@@ -111,6 +111,71 @@ export class TurnoCardDetalleComponent {
       }
     });
   }
+
+  ////////modal alerta para calificar turno ////////////////////////////////////////////////////////////////////////////////
+  alertaConfirmacionCalificacion() {
+    Swal.fire({
+      title: '¿Está seguro de calificar la atención?',
+      text: 'Este proceso es irreversible.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, de acuerdo.',
+      cancelButtonText: 'No, déjame pensar.',
+    }).then((resultado) => {
+      if (resultado.value) {
+        this.mostrarDialogoCalificacion(); // Llama a la función para mostrar el cuadro de diálogo de calificación
+      } else if (resultado.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelado', 'Acción cancelada.', 'error');
+      }
+    });
+  }
+
+  mostrarDialogoCalificacion() {
+    Swal.fire({
+      title: 'Calificar Atención',
+      text: 'Por favor, califique la atención que recibió.',
+      html:
+        '<label for="calificacion">Calificación</label>' +
+        '<input type="number" id="calificacion" class="form-control" min="1" max="5" placeholder="Ingrese la calificación (1-5)" required>' +
+        '<label for="comentario">Comentario</label>' +
+        '<input type="text" id="comentario" class="form-control" placeholder="Ingrese un comentario" required>',
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        // Validar y procesar la calificación y el comentario
+        const calificacionInput = document.getElementById('calificacion') as HTMLInputElement;
+        const comentarioInput = document.getElementById('comentario') as HTMLInputElement;
+
+        const calificacion = calificacionInput.value;
+        const comentario = comentarioInput.value;
+
+        if (!calificacion || isNaN(Number(calificacion)) || Number(calificacion) < 1 || Number(calificacion) > 5) {
+          Swal.showValidationMessage('La calificación debe estar entre 1 y 5.');
+        }
+
+        return { nota: Number(calificacion), comentario: comentario };
+      },
+    }).then((resultado) => {
+      if (resultado.isConfirmed) {
+        const calificacion = resultado.value;
+
+       
+
+        console.log(this.turno.calificacion);
+
+        this.turno.calificacion = calificacion;
+        this.throwTurno.emit(this.turno);
+
+        Swal.fire(
+          'Calificación Enviada',
+          `Gracias por calificar la atención con ${calificacion.nota} estrellas. Comentario: ${calificacion.comentario}`,
+          'success'
+        );
+      }
+    });
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   public atenderTurno(turno: Turno) {
     this.turnosSv.turnoPaciente = turno.paciente;

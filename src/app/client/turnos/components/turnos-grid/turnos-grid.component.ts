@@ -21,8 +21,10 @@ export class TurnosGridComponent {
       const especialidad = turno.especialidad?.nombre.toLowerCase().includes(this.filtroPalabra.toLowerCase());
       const especialistadNombre = turno.especialista?.nombre.toLowerCase().includes(this.filtroPalabra.toLowerCase());
       const especialistaApellido = turno.especialista?.apellido?.toLowerCase().includes(this.filtroPalabra.toLowerCase());
+      const pacienteNombre = turno.paciente?.nombre.toLowerCase().includes(this.filtroPalabra.toLowerCase());
+      const pacienteApellido = turno.paciente?.apellido?.toLowerCase().includes(this.filtroPalabra.toLowerCase());
 
-      return especialidad || especialistadNombre || especialistaApellido;
+      return especialidad || especialistadNombre || especialistaApellido || pacienteNombre || pacienteApellido;
     });
   }
 

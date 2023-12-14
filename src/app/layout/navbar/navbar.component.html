@@ -1,4 +1,5 @@
-<nav class="navbar amatic navbar-expand-lg navbar-dark bg-azul color-celeste fixed-top" aria-label="Ninth navbar example">
+<nav class="navbar amatic navbar-expand-lg navbar-dark bg-azul color-celeste fixed-top"
+  aria-label="Ninth navbar example">
   <div class="container-xl">
     <a class="navbar-brand" routerLink="/home">
       <img src="/assets/logo/logo.png" alt="" srcset="">
@@ -9,7 +10,53 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExample07XL">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+      <!-- |||||||||||||||||||||||||||| PACIENTE NAVBAR  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="currentUser.role == 'paciente'">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/sacarturno">Sacar Turno</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/misturnos">Mis Turnos</a>
+        </li>
+
+      </ul>
+      <!-- |||||||||||||||||||||||||||| END PACIENTE NAVBAR  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+
+      <!-- |||||||||||||||||||||||||||| ESPECIALISTA NAVBAR  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="currentUser.role == 'especialista'">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/misturnos">Mis Turnos</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/jornadas">Gestion de Jornadas</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/mispacientes">Mis Pacientes</a>
+        </li>
+
+      </ul>
+      <!-- |||||||||||||||||||||||||||| END ESPECIALISTA NAVBAR  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+
+      <!-- |||||||||||||||||||||||||||| ADMINISTRADOR NAVBAR  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="currentUser.role == 'administrador'">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
         </li>
@@ -37,7 +84,29 @@
             <li><a class="dropdown-item" routerLink="/mispacientes">Mis Pacientes</a></li>
           </ul>
         </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Especialidades
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/administrador/especialidades">Gestion de Especialidades</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Usuarios
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/administrador/usuarios">Usuarios Listado</a></li>
+            <li><a class="dropdown-item" routerLink="/administrador/logs">Usuarios Logs</a></li>
+          </ul>
+        </li>
+
       </ul>
+      <!-- |||||||||||||||||||||||||||| END ADMINISTRADOR NAVBAR  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+
 
       <ul class="nav navbar-nav navbar-right" *ngIf="authService.userData as user; else login">
         <li class="nav-item">
@@ -46,7 +115,7 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ authService.userData.email }}
+            <img src="{{ currentUser.photoURL }}" alt="Avatar" class="avatar">  {{ currentUser | nombreApellidoPipe}}
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" (click)="authService.SignOut()">Sign Out</a></li>

@@ -6,7 +6,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { UserLog } from 'src/app/auth/class/userLog';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { LogUserService } from './log-user.service';
@@ -16,7 +16,10 @@ import { ERole } from '../class/usuario';
   providedIn: 'root',
 })
 export class AuthService {
+
   userData: any; // Save logged in user data
+  private _userLoggedOutSubject = new Subject<void>();
+
   constructor(
     private logService: LogUserService,
     /////////////////////////////////////////////////////////////////////////  UNIFICAR
@@ -39,6 +42,11 @@ export class AuthService {
       }
     });
   }
+
+  get userLoggedOut$(): Observable<void> {
+    return this._userLoggedOutSubject.asObservable();
+  }
+  
   // Sign in with email/password
   SignIn(usuario: any) {
     return this.afAuth
@@ -139,6 +147,8 @@ provider in Firestore database using AngularFirestore + AngularFirestoreDocument
       localStorage.removeItem('user');
       this.router.navigate(['home']);
       this.userData = null;
+      // Emitir evento de cierre de sesión
+      this._userLoggedOutSubject.next();
     });
   }
 

@@ -1,4 +1,5 @@
 export enum ERole {
+  publico = 'publico',
   paciente = 'paciente',
   especialista = 'especialista',
   administrador = 'administrador'

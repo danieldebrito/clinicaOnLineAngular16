@@ -27,6 +27,7 @@
     "firebase": "^9.23.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.7.1",
+    "jspdf": "^2.5.1",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "rxjs-operators": "^1.1.3",
